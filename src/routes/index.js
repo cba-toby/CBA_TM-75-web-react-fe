@@ -1,18 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
-import AdminHome from "../pages/admin/Home";
-import UserHome from "../pages/user/Home";
+import AdminHome from "../pages/Admin/Home"
+import UserHome from "../pages/User/Home";
+import AdminLogin from "../pages/Admin/Login";
 
 import { DefaultLayout } from "../components/Layout"
 // Public routes
 const publicRoutes = createBrowserRouter([
     {
         path: "/admin",
-        element: 
-         <DefaultLayout />,
+        element: <DefaultLayout />,
         children: [
             {
-                path: "admin",
+                path: "home",
                 element: <AdminHome />, 
+            },
+            {
+                path: "login",
+                element: <AdminLogin />,
             },
         ],
     },

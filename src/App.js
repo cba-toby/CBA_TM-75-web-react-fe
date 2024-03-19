@@ -1,6 +1,4 @@
-import {
-  RouterProvider,
-} from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 
 import { publicRoutes } from "./routes";
 

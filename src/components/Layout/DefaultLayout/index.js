@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
@@ -8,7 +9,7 @@ function DefaultLayout() {
             <div className="container">
                 <Sidebar />
                 <div className="content">
-                    <h2>Default Layout</h2>
+                    <Outlet />
                 </div>
             </div>
         </div>
