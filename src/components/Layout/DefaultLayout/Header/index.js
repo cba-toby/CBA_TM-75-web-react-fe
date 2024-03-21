@@ -1,4 +1,7 @@
-function Header() {
+import React from "react";
+
+function Header({ toogle}) {
+
   return (
     <header id="header" className="header fixed-top d-flex align-items-center">
       <div className="d-flex align-items-center justify-content-between">
@@ -6,7 +9,7 @@ function Header() {
           <img src="assets/img/logo.png" alt="" />
           <span className="d-none d-lg-block">NiceAdmin</span>
         </a>
-        <i className="bi bi-list toggle-sidebar-btn"></i>
+        <i className="bi bi-list toggle-sidebar-btn" onClick={toogle} ></i>
       </div>
 
       <div className="search-bar">
@@ -210,7 +213,7 @@ function Header() {
                 className="rounded-circle"
               />
               <span className="d-none d-md-block dropdown-toggle ps-2">
-                K. Anderson
+                K. Anderson123
               </span>
             </a>
 
