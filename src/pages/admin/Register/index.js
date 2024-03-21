@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 
 function AdminRegister() {
+  const onSubmit = (e) => {
+    e.preventDefault();
+ 
+  };
+
   return (
     <div className="container">
       <div className="pt-4 pb-2">
@@ -12,10 +17,10 @@ function AdminRegister() {
         </p>
       </div>
 
-      <form className="row g-3 needs-validation" noValidate>
+      <form className="row g-3 needs-validation" onSubmit={onSubmit}>
         <div className="col-12">
           <label htmlFor="yourName" className="form-label">
-            Họ và tên
+            Username
           </label>
           <input
             type="name"
@@ -23,8 +28,9 @@ function AdminRegister() {
             className="form-control"
             id="yourName"
             required
+            placeholder="Username"
           />
-          <div className="invalid-feedback">Please enter your name!</div>
+          <div className="invalid-feedback">Please enter your username!</div>
         </div>
 
         <div className="col-12">
@@ -37,25 +43,45 @@ function AdminRegister() {
             </span>
             <input
               type="text"
-              name="username"
+              name="email"
               className="form-control"
-              id="yourUsername"
+              id="yourEmail"
               required
+              placeholder="Email"
             />
-            <div className="invalid-feedback">Please enter your username.</div>
+            <div className="invalid-feedback">Please enter your email.</div>
           </div>
         </div>
 
         <div className="col-12">
           <label htmlFor="yourPassword" className="form-label">
-            Mật khẩu
+            Password
           </label>
           <input
             type="password"
             name="password"
+            autoComplete="on"
             className="form-control"
             id="yourPassword"
             required
+            placeholder="Password"
+          />
+          <div className="invalid-feedback">Please enter your password!</div>
+        </div>
+
+        <div className="col-12">
+          <label htmlFor="yourPassword" className="form-label">
+            Password Confirmation
+          </label>
+          <input
+            type="password"
+            name="passwordConfirmation"
+            autoComplete="on"
+
+            className="form-control"
+            id="yourPasswordConfirm"
+            required
+            placeholder="PasswordConfirm"
           />
           <div className="invalid-feedback">Please enter your password!</div>
         </div>
@@ -81,7 +107,7 @@ function AdminRegister() {
         </div>
         <div className="col-12">
           <p className="small mb-0">
-            Already have an account <Link to="/admin/login">Log in</Link>{" "}
+            Already have an account <Link to="/admin/auth/login">Log in</Link>{" "}
           </p>
         </div>
       </form>

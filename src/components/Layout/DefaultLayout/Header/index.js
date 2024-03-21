@@ -1,6 +1,8 @@
 import React from "react";
+import { useStateContext } from "../../../../context/ContextProvider";
 
-function Header({ toogle}) {
+function Header({ toogle }) {
+  const { user, token } = useStateContext();
 
   return (
     <header id="header" className="header fixed-top d-flex align-items-center">
@@ -9,7 +11,7 @@ function Header({ toogle}) {
           <img src="assets/img/logo.png" alt="" />
           <span className="d-none d-lg-block">NiceAdmin</span>
         </a>
-        <i className="bi bi-list toggle-sidebar-btn" onClick={toogle} ></i>
+        <i className="bi bi-list toggle-sidebar-btn" onClick={toogle}></i>
       </div>
 
       <div className="search-bar">
@@ -213,14 +215,14 @@ function Header({ toogle}) {
                 className="rounded-circle"
               />
               <span className="d-none d-md-block dropdown-toggle ps-2">
-                K. Anderson123
+                {user.name}
               </span>
             </a>
 
             <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li className="dropdown-header">
-                <h6>Kevin Anderson</h6>
-                <span>Web Designer</span>
+                <h6>{user.name}</h6>
+                <span> Người dùng </span>
               </li>
               <li>
                 <hr className="dropdown-divider" />

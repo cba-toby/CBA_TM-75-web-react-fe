@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
 function LoginAdmin() {
+  const onSubmit = (e) => {
+    e.preventDefault();
+  }
+
   return (
     <div>
       <div className="pt-4 pb-2">
@@ -11,7 +15,7 @@ function LoginAdmin() {
           Enter your username & password to login
         </p>
       </div>
-      <form className="row g-3 needs-validation" noValidate>
+      <form className="row g-3 needs-validation" onSubmit={onSubmit}>
         <div className="col-12">
           <label htmlFor="yourUsername" className="form-label">
             Username
@@ -26,6 +30,7 @@ function LoginAdmin() {
               className="form-control"
               id="yourUsername"
               required
+              placeholder="Username"
             />
             <div className="invalid-feedback">Please enter your username.</div>
           </div>
@@ -41,6 +46,7 @@ function LoginAdmin() {
             className="form-control"
             id="yourPassword"
             required
+            placeholder="Password"
           />
           <div className="invalid-feedback">Please enter your password!</div>
         </div>
@@ -67,7 +73,7 @@ function LoginAdmin() {
         <div className="col-12">
           <p className="small mb-0">
             Don't have account?{" "}
-            <Link to="/admin/register"> Create an account</Link>
+            <Link to="/admin/auth/register"> Create an account</Link>
           </p>
         </div>
       </form>
