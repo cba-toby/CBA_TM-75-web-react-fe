@@ -9,7 +9,7 @@ function Header({ toogle }) {
   const onLogout = ev => {
     ev.preventDefault()
 
-    axiosClient.post('/auth/logout')
+    axiosClient.post('/admin/logout')
       .then(() => {
         setUser({})
         setToken(null)

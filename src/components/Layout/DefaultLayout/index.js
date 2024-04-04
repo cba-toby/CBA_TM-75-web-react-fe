@@ -11,10 +11,10 @@ function DefaultLayout() {
   const { user, token, setUser, setToken } = useStateContext();
 
   useEffect(() => {
-    // axiosClient.get('auth/user')
-    //   .then(({data}) => {
-    //      setUser(data)
-    //   })
+    axiosClient.get('admin/user')
+      .then(({data}) => {
+         setUser(data)
+      })
   }, []);
 
   if (!token) {

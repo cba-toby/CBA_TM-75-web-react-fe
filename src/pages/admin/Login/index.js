@@ -6,35 +6,35 @@ import { useStateContext } from "../../../context/ContextProvider";
 function LoginAdmin() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const [errors, setErrors] = useState(null)
-  const {setUser, setToken} = useStateContext()
+  const [errors, setErrors] = useState(null);
+  const { setUser, setToken } = useStateContext();
 
   const onSubmit = (e) => {
-  setErrors(null)
+    setErrors(null);
     e.preventDefault();
     const payload = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    }
+    };
 
-    axiosClient.post('/auth/login', payload)
-      .then((data)=> {
-        console.log('Login data:', data.data.user);
-        setUser(data.data.user)
-        setToken(data.data.token)
-        setErrors(null)
+    axiosClient
+      .post("/auth/login", payload)
+      .then((data) => {
+        setUser(data.data.user);
+        setToken(data.data.token);
+        setErrors(null);
       })
       .catch((error) => {
-        const {response} = error;
+        const { response } = error;
         if (response.status === 422) {
-          setErrors(response.data.errors)
+          setErrors(response.data.errors);
         } else if (response.status === 500) {
-          setErrors({server: ["Server error"]})
+          setErrors({ server: ["Server error"] });
         } else if (response.status === 401) {
-          setErrors({email: [response.data.error]})
+          setErrors({ email: [response.data.error] });
         }
-      })
-  }
+      });
+  };
 
   return (
     <div>
@@ -47,12 +47,13 @@ function LoginAdmin() {
         </p>
       </div>
       <form className="row g-3 needs-validation" onSubmit={onSubmit}>
-      {errors && <div style={{ color: "red" }}>
-          {Object.keys(errors).map((key) => (
-            <p key={key}>{errors[key][0]}</p>
-          ))}
-        </div>
-        }
+        {errors && (
+          <div style={{ color: "red" }}>
+            {Object.keys(errors).map((key) => (
+              <p key={key}>{errors[key][0]}</p>
+            ))}
+          </div>
+        )}
         <div className="col-12">
           <label htmlFor="youremail" className="form-label">
             Email
