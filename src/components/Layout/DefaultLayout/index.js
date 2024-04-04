@@ -1,12 +1,21 @@
 import { Outlet, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useStateContext } from "../../../context/ContextProvider";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
+import axiosClient from "../../../axios-client";
+
 
 function DefaultLayout() {
   const [toggleSidebar, setToggleSidebar] = useState(false)
   const { user, token, setUser, setToken } = useStateContext();
+
+  useEffect(() => {
+    // axiosClient.get('auth/user')
+    //   .then(({data}) => {
+    //      setUser(data)
+    //   })
+  }, []);
 
   if (!token) {
     return <Navigate to="/admin/auth/login" />;
@@ -16,17 +25,14 @@ function DefaultLayout() {
     setToggleSidebar(!toggleSidebar)
   }
 
+
   return (
     <div className={toggleSidebar ? "toggle-sidebar" : ""}>
       <Header toogle={ handleToggleSidebar }/>
-      <div className="container">
-        <Sidebar />
-        <div className="content">
-          <main>
+      <Sidebar />
+          <main id="main" className="main">
             <Outlet />
           </main>
-        </div>
-      </div>
     </div>
   );
 }

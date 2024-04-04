@@ -1,15 +1,27 @@
 import React from "react";
 import { useStateContext } from "../../../../context/ContextProvider";
+import axiosClient from "../../../../axios-client";
 
 function Header({ toogle }) {
-  const { user, token } = useStateContext();
+  const { user, token, setUser, setToken } = useStateContext();
+
+
+  const onLogout = ev => {
+    ev.preventDefault()
+
+    axiosClient.post('/auth/logout')
+      .then(() => {
+        setUser({})
+        setToken(null)
+      })
+  }
 
   return (
     <header id="header" className="header fixed-top d-flex align-items-center">
       <div className="d-flex align-items-center justify-content-between">
         <a href="index.html" className="logo d-flex align-items-center">
           <img src="assets/img/logo.png" alt="" />
-          <span className="d-none d-lg-block">NiceAdmin</span>
+          <span className="d-none d-lg-block">Blog-Toby</span>
         </a>
         <i className="bi bi-list toggle-sidebar-btn" onClick={toogle}></i>
       </div>
@@ -222,7 +234,7 @@ function Header({ toogle }) {
             <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li className="dropdown-header">
                 <h6>{user.name}</h6>
-                <span> Người dùng </span>
+                <span> {user.name} </span>
               </li>
               <li>
                 <hr className="dropdown-divider" />
@@ -268,7 +280,7 @@ function Header({ toogle }) {
               </li>
 
               <li>
-                <a className="dropdown-item d-flex align-items-center" href="#">
+                <a className="dropdown-item d-flex align-items-center" onClick={onLogout}>
                   <i className="bi bi-box-arrow-right"></i>
                   <span>Sign Out</span>
                 </a>

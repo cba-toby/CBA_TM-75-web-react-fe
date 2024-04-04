@@ -1,9 +1,37 @@
 import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import axiosClient from "../../../axios-client";
+import { useStateContext } from "../../../context/ContextProvider";
 
 function AdminRegister() {
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmationRef = useRef();
+  const [errors, setErrors] = useState(null)
+  const {setUser, setToken} = useStateContext()
+
   const onSubmit = (e) => {
     e.preventDefault();
- 
+    const payload = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      password_confirmation: passwordConfirmationRef.current.value,
+    }
+
+    axiosClient.post('/auth/signup', payload)
+      .then((data)=> {
+        setUser(data.data.user)
+        setToken(data.data.token)
+        setErrors(null)
+      })
+      .catch((error) => {
+        const {response} = error;
+        if (response.status === 422) {
+          setErrors(response.data.errors)
+        }
+      })
   };
 
   return (
@@ -18,11 +46,18 @@ function AdminRegister() {
       </div>
 
       <form className="row g-3 needs-validation" onSubmit={onSubmit}>
+        {errors && <div style={{ color: "red" }}>
+          {Object.keys(errors).map((key) => (
+            <p key={key}>{errors[key][0]}</p>
+          ))}
+        </div>
+        }
         <div className="col-12">
           <label htmlFor="yourName" className="form-label">
             Username
           </label>
           <input
+            ref={nameRef}
             type="name"
             name="name"
             className="form-control"
@@ -30,7 +65,6 @@ function AdminRegister() {
             required
             placeholder="Username"
           />
-          <div className="invalid-feedback">Please enter your username!</div>
         </div>
 
         <div className="col-12">
@@ -42,6 +76,7 @@ function AdminRegister() {
               @
             </span>
             <input
+              ref={emailRef}
               type="text"
               name="email"
               className="form-control"
@@ -49,7 +84,6 @@ function AdminRegister() {
               required
               placeholder="Email"
             />
-            <div className="invalid-feedback">Please enter your email.</div>
           </div>
         </div>
 
@@ -58,6 +92,7 @@ function AdminRegister() {
             Password
           </label>
           <input
+            ref={passwordRef}
             type="password"
             name="password"
             autoComplete="on"
@@ -66,7 +101,6 @@ function AdminRegister() {
             required
             placeholder="Password"
           />
-          <div className="invalid-feedback">Please enter your password!</div>
         </div>
 
         <div className="col-12">
@@ -74,6 +108,7 @@ function AdminRegister() {
             Password Confirmation
           </label>
           <input
+            ref={passwordConfirmationRef}
             type="password"
             name="passwordConfirmation"
             autoComplete="on"
@@ -83,7 +118,6 @@ function AdminRegister() {
             required
             placeholder="PasswordConfirm"
           />
-          <div className="invalid-feedback">Please enter your password!</div>
         </div>
 
         <div className="col-12">
