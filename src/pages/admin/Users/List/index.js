@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axiosClient from "../../../../axios-client";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../../../../context/ContextProvider";
-import ReactPaginaet from "react-paginate";
 import PaginationComponent from "../../../../components/Pagination";
 
 function Users() {
@@ -56,7 +55,10 @@ function Users() {
         .delete(`/admin/users/destroy/${id}`)
         .then(() => {
           getUsers();
-          setNotification("User was successfully deleted");
+          setNotification({
+            type: "success",
+            data: "User was successfully deleted",
+          });
         })
         .catch((error) => {
           console.log(error);

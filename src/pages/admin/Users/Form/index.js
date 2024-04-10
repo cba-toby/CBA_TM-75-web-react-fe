@@ -42,7 +42,11 @@ function UserForm() {
         .then((data) => {
           navigate("/admin/users");
           setErrors(null);
-          setNotification("User was successfully updated");
+          setNotification("");
+          setNotification({
+            type: "success",
+            data: "User was successfully updated",
+          });
         })
         .catch((error) => {
           const { response } = error;
@@ -56,7 +60,11 @@ function UserForm() {
         .then((data) => {
           navigate("/admin/users");
           setErrors(null);
-          setNotification("User was successfully created");
+          setNotification("");
+          setNotification({
+            type: "success",
+            data: "User was successfully created",
+          });
         })
         .catch((error) => {
           const { response } = error;
