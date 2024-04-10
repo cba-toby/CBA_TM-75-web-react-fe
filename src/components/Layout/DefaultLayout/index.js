@@ -5,34 +5,33 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import axiosClient from "../../../axios-client";
 
-
 function DefaultLayout() {
-  const [toggleSidebar, setToggleSidebar] = useState(false)
+  const [toggleSidebar, setToggleSidebar] = useState(false);
   const { user, token, setUser, setToken } = useStateContext();
 
   useEffect(() => {
-    axiosClient.get('admin/user')
-      .then(({data}) => {
-         setUser(data)
-      })
-  }, []);
+    if (token) {
+      axiosClient.get("admin/user").then(({ data }) => {
+        setUser(data);
+      });
+    }
+  }, [token]);
 
   if (!token) {
     return <Navigate to="/admin/auth/login" />;
   }
 
   const handleToggleSidebar = () => {
-    setToggleSidebar(!toggleSidebar)
-  }
-
+    setToggleSidebar(!toggleSidebar);
+  };
 
   return (
     <div className={toggleSidebar ? "toggle-sidebar" : ""}>
-      <Header toogle={ handleToggleSidebar }/>
+      <Header toogle={handleToggleSidebar} />
       <Sidebar />
-          <main id="main" className="main">
-            <Outlet />
-          </main>
+      <main id="main" className="main">
+        <Outlet />
+      </main>
     </div>
   );
 }

@@ -14,44 +14,87 @@ function CreateCategory() {
         </nav>
       </div>
       <div className="container">
-      <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">General Form Elements</h5>
-              <form>
-                <div className="row mb-3">
-                  <label htmlFor="inputText" className="col-sm-2 col-form-label">Text</label>
-                  <div className="col-sm-10">
-                    <input type="text" className="form-control" />
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">Danh Mục</h5>
+            <form>
+              <div className="row mb-3">
+                <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                  Tiêu đề
+                </label>
+                <div className="col-sm-10">
+                  <input type="text" className="form-control" />
+                </div>
+              </div>
+              <div className="row mb-3">
+                <label htmlFor="inputText" className="col-sm-2 col-form-label">
+                  Danh mục cha
+                </label>
+                <div className="col-sm-10">
+                  <div className="col-md-4">
+                    <select
+                      className="form-select"
+                      id="floatingSelect"
+                      aria-label="State"
+                    >
+                      <option defaultChecked="">Chọn danh mục cha ...</option>
+                      <option value="1">Oregon</option>
+                      <option value="2">DC</option>
+                    </select>
                   </div>
                 </div>
-                <div className="row mb-3">
-                  <label htmlFor="inputEmail" className="col-sm-2 col-form-label">Email</label>
-                  <div className="col-sm-10">
-                    <input type="email" className="form-control" />
+              </div>
+              <fieldset className="row mb-3">
+                <legend className="col-form-label col-sm-2 pt-0">Radios</legend>
+                <div className="col-sm-10">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="gridRadios"
+                      id="gridRadios1"
+                      value="option1"
+                      defaultChecked
+                    />
+                    <label className="form-check-label" htmlFor="gridRadios1">
+                      First radio
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="gridRadios"
+                      id="gridRadios2"
+                      value="option2"
+                    />
+                    <label className="form-check-label" htmlFor="gridRadios2">
+                      Second radio
+                    </label>
                   </div>
                 </div>
-                <div className="row mb-3">
-                  <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                  <div className="col-sm-10">
-                    <input type="password" className="form-control" />
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <label htmlFor="inputNumber" className="col-sm-2 col-form-label">Number</label>
-                  <div className="col-sm-10">
-                    <input type="number" className="form-control" />
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                  <button type="reset" class="btn btn-secondary">Reset</button>
-                </div>
-              </form>
+              </fieldset>
 
-            </div>
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{ margin: "10px" }}
+                >
+                  Submit
+                </button>
+                <button
+                  type="reset"
+                  className="btn btn-secondary"
+                  style={{ margin: "10px" }}
+                >
+                  Reset
+                </button>
+              </div>
+            </form>
           </div>
+        </div>
       </div>
-     
     </>
   );
 }

@@ -65,7 +65,38 @@ function Sidebar() {
               </Link>
             </li>
             <li>
-            <Link to="/admin/category/create">
+              <Link to="/admin/category/create">
+                <i className="bi bi-circle"></i>
+                <span>Tạo mới</span>
+              </Link>
+            </li>
+          </ul>
+        </li>
+
+        <li className="nav-item">
+          <a
+            className="nav-link collapsed"
+            data-bs-target="#users-nav"
+            data-bs-toggle="collapse"
+            href="#"
+          >
+            <i className="bi bi-menu-button-wide"></i>
+            <span>Người dùng</span>
+            <i className="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul
+            id="users-nav"
+            className="nav-content collapse "
+            data-bs-parent="#sidebar-nav"
+          >
+            <li>
+              <Link to="/admin/users">
+                <i className="bi bi-circle"></i>
+                <span>Danh sách</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/users/create">
                 <i className="bi bi-circle"></i>
                 <span>Tạo mới</span>
               </Link>
