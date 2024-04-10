@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../../../../axios-client";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../../../../context/ContextProvider";
 
 function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { setNotification } = useStateContext();
 
   useEffect(() => {
     getUsers();
@@ -30,6 +32,7 @@ function Users() {
         .delete(`/admin/users/destroy/${id}`)
         .then(() => {
           getUsers();
+          setNotification("User was successfully deleted");
         })
         .catch((error) => {
           console.log(error);
@@ -40,11 +43,10 @@ function Users() {
   return (
     <div>
       <h1>User admin</h1>
-      <Link to="/admin/users/create"> Add user </Link>
       <div className="container">
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Table with stripped rows</h5>
+            <h5 className="card-title">List User</h5>
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -59,8 +61,10 @@ function Users() {
               {loading && (
                 <tbody>
                   <tr>
-                    <td colSpan="5" class="text-center">
-                      Loading...
+                    <td colSpan="5" className="text-center">
+                      <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
                     </td>
                   </tr>
                 </tbody>

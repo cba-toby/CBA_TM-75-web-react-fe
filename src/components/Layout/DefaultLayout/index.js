@@ -7,7 +7,7 @@ import axiosClient from "../../../axios-client";
 
 function DefaultLayout() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const { user, token, setUser, setToken } = useStateContext();
+  const { user, token, notification, setUser, setToken } = useStateContext();
 
   useEffect(() => {
     if (token) {
@@ -30,6 +30,20 @@ function DefaultLayout() {
       <Header toogle={handleToggleSidebar} />
       <Sidebar />
       <main id="main" className="main">
+        {notification && (
+          <div
+            class="alert alert-success alert-dismissible fade show"
+            role="alert"
+          >
+            {notification}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+        )}
         <Outlet />
       </main>
     </div>
