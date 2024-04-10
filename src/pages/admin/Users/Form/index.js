@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../../../../axios-client";
 import { useStateContext } from "../../../../context/ContextProvider";
+import TextInput from "../../../../components/Input/TextInput";
 
 function UserForm() {
   let { id } = useParams();
@@ -104,81 +105,35 @@ function UserForm() {
             )}
             {!loading && (
               <form onSubmit={onSubmit}>
-                <div className="row mb-3">
-                  <label
-                    htmlFor="inputText"
-                    className="col-sm-2 col-form-label"
-                  >
-                    Tên đăng nhập
-                  </label>
-                  <div className="col-sm-10">
-                    <input
-                      value={user.name}
-                      onChange={(ev) =>
-                        setUser({ ...user, name: ev.target.value })
-                      }
-                      placeholder="Name"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <label
-                    htmlFor="inputText"
-                    className="col-sm-2 col-form-label"
-                  >
-                    Email
-                  </label>
-                  <div className="col-sm-10">
-                    <input
-                      value={user.email}
-                      onChange={(ev) =>
-                        setUser({ ...user, email: ev.target.value })
-                      }
-                      placeholder="Email"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <label
-                    htmlFor="inputText"
-                    className="col-sm-2 col-form-label"
-                  >
-                    Mật khẩu
-                  </label>
-                  <div className="col-sm-10">
-                    <input
-                      type="password"
-                      onChange={(ev) =>
-                        setUser({ ...user, password: ev.target.value })
-                      }
-                      placeholder="Password"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <label
-                    htmlFor="inputText"
-                    className="col-sm-2 col-form-label"
-                  >
-                    Xác nhận mật khẩu
-                  </label>
-                  <div className="col-sm-10">
-                    <input
-                      type="password"
-                      onChange={(ev) =>
-                        setUser({
-                          ...user,
-                          password_confirmation: ev.target.value,
-                        })
-                      }
-                      placeholder="Password Confirmation"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
+                <TextInput
+                  label="Tên đăng nhập"
+                  value={user.name}
+                  onChange={(value) => setUser({ ...user, name: value })}
+                  placeholder="Name"
+                />
+                <TextInput
+                  label="Email"
+                  value={user.email}
+                  onChange={(value) => setUser({ ...user, email: value })}
+                  placeholder="Email"
+                />
+                <TextInput
+                  label="Mật khẩu"
+                  value={user.password}
+                  onChange={(value) => setUser({ ...user, password: value })}
+                  placeholder="Password"
+                  type="password"
+                />
+                <TextInput
+                  label="Xác nhận mật khẩu"
+                  value={user.password_confirmation}
+                  onChange={(value) =>
+                    setUser({ ...user, password_confirmation: value })
+                  }
+                  placeholder="Password Confirmation"
+                  type="password"
+                />
+
                 <div className="text-center">
                   <button type="submit" className="btn btn-primary">
                     Submit

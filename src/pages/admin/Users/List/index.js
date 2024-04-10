@@ -3,6 +3,7 @@ import axiosClient from "../../../../axios-client";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../../../../context/ContextProvider";
 import PaginationComponent from "../../../../components/Pagination";
+import Loading from "../../../../components/Loading";
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -114,18 +115,10 @@ function Users() {
                 </tr>
               </thead>
 
-              {loading && (
-                <tbody>
-                  <tr>
-                    <td colSpan="5" className="text-center">
-                      <div className="spinner-border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              )}
+              {/* Loading */}
+              {loading && <Loading />}
 
+              {/* Data */}
               {!loading && (
                 <>
                   <tbody>
