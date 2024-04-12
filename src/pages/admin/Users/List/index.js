@@ -103,17 +103,17 @@ function Users() {
                   handlePageChange={handlePageChange}
                 />
               </div>
-            </div>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#ID</th>
-                  <th scope="col">Tên</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Create Date</th>
-                  <th scope="col">Active</th>
-                </tr>
-              </thead>
+              </div>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" style={{ width: "10%" }}>#ID</th>
+                    <th scope="col" style={{ width: "20%" }}>Tên</th>
+                    <th scope="col" style={{ width: "30%" }}>Email</th>
+                    <th scope="col" style={{ width: "20%" }}>Create Date</th>
+                    <th scope="col" style={{ width: "20%" }}>Active</th>
+                  </tr>
+                </thead>
 
               {/* Loading */}
               {loading && <Loading />}
