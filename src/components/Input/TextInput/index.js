@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const TextInput = ({ label, value, onChange, placeholder }) => {
-  const [user, setUser] = useState(value);
+  const [inputValue, setInputValue] = useState(value || "");
 
   const handleChange = (ev) => {
-    setUser({ ...user, name: ev.target.value });
+    setInputValue(ev.target.value);
     onChange(ev.target.value);
   };
 
@@ -15,7 +15,7 @@ const TextInput = ({ label, value, onChange, placeholder }) => {
       </label>
       <div className="col-sm-10">
         <input
-          value={user.name}
+          value={inputValue}
           onChange={handleChange}
           placeholder={placeholder}
           className="form-control"

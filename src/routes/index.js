@@ -9,7 +9,7 @@ import { LoginLayout } from "../components/Layout";
 import Page404 from "../components/Layout/Page404";
 
 import Category from "../pages/admin/Category/List";
-import CreateCategory from "../pages/admin/Category/Create";
+import CategoryForm from "../pages/admin/Category/Form";
 
 import User from "../pages/admin/Users/List";
 import UserForm from "../pages/admin/Users/Form";
@@ -66,7 +66,7 @@ const publicRoutes = createBrowserRouter([
           },
           {
             path: "category/create",
-            element: <CreateCategory />,
+            element: <CategoryForm />,
           },
         ],
       },
