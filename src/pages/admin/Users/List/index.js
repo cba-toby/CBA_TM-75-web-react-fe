@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../../../../context/ContextProvider";
 import PaginationComponent from "../../../../components/Pagination";
 import Loading from "../../../../components/Loading";
+import SearchInput from "../../../../components/Input/SearchInput";
+import TableHeader from "../../../../components/Table/TableHeader";
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -13,6 +15,14 @@ function Users() {
   const [pageCount, setPageCount] = useState(10);
   const [search, setSearch] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
+
+  const headers = [
+    { label: "#ID", width: "10%" },
+    { label: "Tên" },
+    { label: "Email", width: "30%" },
+    { label: "Create Date", width: "20%" },
+    { label: "Active", width: "20%" },
+  ];
 
   useEffect(() => {
     getUsers(currentPage);
@@ -74,47 +84,22 @@ function Users() {
         <div className="card">
           <div className="card-body">
             <h5 className="card-title">List User</h5>
+
             <div className="datatable-top">
               {/* Seach box */}
-              <div className="datatable-search">
-                <input
-                  className="datatable-input"
-                  placeholder="Search..."
-                  type="search"
-                  title="Search within table"
-                  value={search}
-                  onChange={(ev) => {
-                    handleSearch(ev.target.value);
-                  }}
-                />
-              </div>
-
+              <SearchInput handleSearch={handleSearch} />
               {/* Pagination  */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "right",
-                  alignItems: "center",
-                }}
-              >
+              <div style={{ justifyContent: "right", alignItems: "center" }}>
                 <PaginationComponent
                   pageCount={pageCount}
                   currentPage={currentPage - 1}
                   handlePageChange={handlePageChange}
                 />
               </div>
-              </div>
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col" style={{ width: "10%" }}>#ID</th>
-                    <th scope="col" style={{ width: "20%" }}>Tên</th>
-                    <th scope="col" style={{ width: "30%" }}>Email</th>
-                    <th scope="col" style={{ width: "20%" }}>Create Date</th>
-                    <th scope="col" style={{ width: "20%" }}>Active</th>
-                  </tr>
-                </thead>
+            </div>
 
+            <table className="table table-striped">
+              <TableHeader headers={headers} />
               {/* Loading */}
               {loading && <Loading />}
 

@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const TextInput = ({ label, value, onChange, placeholder }) => {
+const TextInput = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+  isRequired = false,
+}) => {
   const [inputValue, setInputValue] = useState(value || "");
 
   const handleChange = (ev) => {
@@ -12,6 +18,7 @@ const TextInput = ({ label, value, onChange, placeholder }) => {
     <div className="row mb-3">
       <label htmlFor="inputText" className="col-sm-2 col-form-label">
         {label}
+        {isRequired && <span className="text-danger ml-2"> *</span>}
       </label>
       <div className="col-sm-10">
         <input

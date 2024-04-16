@@ -11,6 +11,8 @@ function UserForm() {
   const [errors, setErrors] = useState(null);
   const [userOld, setUserOld] = useState(null);
   const { setNotification } = useStateContext();
+  const [isRequired, setIsRequired] = useState(true);
+  const [isRequiredPassword, setIsRequiredPassword] = useState(true);
   const [user, setUser] = useState({
     id: null,
     name: "",
@@ -21,6 +23,7 @@ function UserForm() {
 
   useEffect(() => {
     if (id) {
+      setIsRequiredPassword(false);
       setLoading(true);
       axiosClient
         .get(`/admin/users/show/${id}`)
@@ -110,12 +113,14 @@ function UserForm() {
                   value={user.name}
                   onChange={(value) => setUser({ ...user, name: value })}
                   placeholder="Name"
+                  isRequired={isRequired}
                 />
                 <TextInput
                   label="Email"
                   value={user.email}
                   onChange={(value) => setUser({ ...user, email: value })}
                   placeholder="Email"
+                  isRequired={isRequired}
                 />
                 <TextInput
                   label="Mật khẩu"
@@ -123,6 +128,7 @@ function UserForm() {
                   onChange={(value) => setUser({ ...user, password: value })}
                   placeholder="Password"
                   type="password"
+                  isRequired={isRequiredPassword}
                 />
                 <TextInput
                   label="Xác nhận mật khẩu"
@@ -132,8 +138,8 @@ function UserForm() {
                   }
                   placeholder="Password Confirmation"
                   type="password"
+                  isRequired={isRequiredPassword}
                 />
-
                 <div className="text-center">
                   <button type="submit" className="btn btn-primary">
                     Submit

@@ -31,6 +31,24 @@ function CategoryForm() {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(category);
+    axiosClient
+      .post("/admin/category", category)
+      .then((data) => {
+        console.log(data);
+        // navigate("/admin/users");
+        // setErrors(null);
+        // setNotification("");
+        // setNotification({
+        //   type: "success",
+        //   data: "User was successfully created",
+        // });
+      })
+      .catch((error) => {
+        const { response } = error;
+        if (response.status === 422) {
+          setErrors(response.data.errors);
+        }
+      });
   };
 
   return (
@@ -57,6 +75,7 @@ function CategoryForm() {
                 value={category.title}
                 onChange={(value) => setCategory({ ...category, title: value })}
                 placeholder="Tiêu đề"
+                isRequired="true"
               />
 
               <SelectInput
@@ -73,6 +92,7 @@ function CategoryForm() {
                 value={category.slug}
                 onChange={(value) => setCategory({ ...category, slug: value })}
                 placeholder="Slug"
+                isRequired="true"
               />
               <TextInput
                 label="Tiêu đề meta"
