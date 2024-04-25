@@ -8,8 +8,8 @@ function AdminRegister() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
-  const [errors, setErrors] = useState(null)
-  const {setUser, setToken} = useStateContext()
+  const [errors, setErrors] = useState(null);
+  const { setUser, setToken } = useStateContext();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -18,20 +18,21 @@ function AdminRegister() {
       email: emailRef.current.value,
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
-    }
+    };
 
-    axiosClient.post('/auth/signup', payload)
-      .then((data)=> {
-        setUser(data.data.user)
-        setToken(data.data.token)
-        setErrors(null)
+    axiosClient
+      .post("/auth/signup", payload)
+      .then((data) => {
+        setUser(data.data.user);
+        setToken(data.data.token);
+        setErrors(null);
       })
       .catch((error) => {
-        const {response} = error;
+        const { response } = error;
         if (response.status === 422) {
-          setErrors(response.data.errors)
+          setErrors(response.data.errors);
         }
-      })
+      });
   };
 
   return (
@@ -46,12 +47,13 @@ function AdminRegister() {
       </div>
 
       <form className="row g-3 needs-validation" onSubmit={onSubmit}>
-        {errors && <div style={{ color: "red" }}>
-          {Object.keys(errors).map((key) => (
-            <p key={key}>{errors[key][0]}</p>
-          ))}
-        </div>
-        }
+        {errors && (
+          <div style={{ color: "red" }}>
+            {Object.keys(errors).map((key) => (
+              <p key={key}>{errors[key][0]}</p>
+            ))}
+          </div>
+        )}
         <div className="col-12">
           <label htmlFor="yourName" className="form-label">
             Username
@@ -112,7 +114,6 @@ function AdminRegister() {
             type="password"
             name="passwordConfirmation"
             autoComplete="on"
-
             className="form-control"
             id="yourPasswordConfirm"
             required

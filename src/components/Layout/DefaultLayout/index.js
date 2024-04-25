@@ -4,35 +4,46 @@ import { useStateContext } from "../../../context/ContextProvider";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import axiosClient from "../../../axios-client";
-
+import { showNotification } from "../../../components/Notification";
+import { ToastContainer } from "react-toastify";
+import Breadcrumbs from "../../../components/Breadcrumbs";
+import "react-toastify/dist/ReactToastify.css";
 
 function DefaultLayout() {
-  const [toggleSidebar, setToggleSidebar] = useState(false)
-  const { user, token, setUser, setToken } = useStateContext();
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+  const { user, token, notification, setUser, setToken } = useStateContext();
 
   useEffect(() => {
-    axiosClient.get('admin/user')
-      .then(({data}) => {
-         setUser(data)
-      })
-  }, []);
+    if (token) {
+      axiosClient.get("admin/user").then(({ data }) => {
+        setUser(data);
+      });
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (notification) {
+      showNotification(notification.type, notification.data);
+    }
+  }, [notification]);
 
   if (!token) {
     return <Navigate to="/admin/auth/login" />;
   }
 
   const handleToggleSidebar = () => {
-    setToggleSidebar(!toggleSidebar)
-  }
-
+    setToggleSidebar(!toggleSidebar);
+  };
 
   return (
     <div className={toggleSidebar ? "toggle-sidebar" : ""}>
-      <Header toogle={ handleToggleSidebar }/>
+      <Header toogle={handleToggleSidebar} />
       <Sidebar />
-          <main id="main" className="main">
-            <Outlet />
-          </main>
+      <main id="main" className="main">
+        <ToastContainer />
+        <Breadcrumbs />
+        <Outlet />
+      </main>
     </div>
   );
 }

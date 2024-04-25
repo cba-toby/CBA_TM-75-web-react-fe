@@ -7,8 +7,12 @@ import AdminRegister from "../pages/admin/Register";
 import { DefaultLayout } from "../components/Layout";
 import { LoginLayout } from "../components/Layout";
 import Page404 from "../components/Layout/Page404";
+
 import Category from "../pages/admin/Category/List";
-import CreateCategory from "../pages/admin/Category/Create";
+import CategoryForm from "../pages/admin/Category/Form";
+
+import User from "../pages/admin/Users/List";
+import UserForm from "../pages/admin/Users/Form";
 // Public routes
 const publicRoutes = createBrowserRouter([
   {
@@ -45,13 +49,29 @@ const publicRoutes = createBrowserRouter([
             element: <AdminHome />,
           },
           {
-            path: "category/list",
+            path: "users",
+            element: <User />,
+          },
+          {
+            path: "users/create",
+            element: <UserForm key="userCreate" />,
+          },
+          {
+            path: "users/:id",
+            element: <UserForm key="userUpdate" />,
+          },
+          {
+            path: "category",
             element: <Category />,
           },
           {
             path: "category/create",
-            element: <CreateCategory />,
-          }
+            element: <CategoryForm key="categoryCreate"/>,
+          },
+          {
+            path: "category/:id",
+            element: <CategoryForm key="categoryUpdate" />,
+          },
         ],
       },
     ],
