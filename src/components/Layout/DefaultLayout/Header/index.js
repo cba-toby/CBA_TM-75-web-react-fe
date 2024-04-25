@@ -5,16 +5,14 @@ import axiosClient from "../../../../axios-client";
 function Header({ toogle }) {
   const { user, token, setUser, setToken } = useStateContext();
 
+  const onLogout = (ev) => {
+    ev.preventDefault();
 
-  const onLogout = ev => {
-    ev.preventDefault()
-
-    axiosClient.post('/admin/logout')
-      .then(() => {
-        setUser({})
-        setToken(null)
-      })
-  }
+    axiosClient.post("/admin/logout").then(() => {
+      setUser({});
+      setToken(null);
+    });
+  };
 
   return (
     <header id="header" className="header fixed-top d-flex align-items-center">
@@ -280,7 +278,10 @@ function Header({ toogle }) {
               </li>
 
               <li>
-                <a className="dropdown-item d-flex align-items-center" onClick={onLogout}>
+                <a
+                  className="dropdown-item d-flex align-items-center"
+                  onClick={onLogout}
+                >
                   <i className="bi bi-box-arrow-right"></i>
                   <span>Sign Out</span>
                 </a>

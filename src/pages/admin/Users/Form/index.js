@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../../../../axios-client";
 import { useStateContext } from "../../../../context/ContextProvider";
 import TextInput from "../../../../components/Input/TextInput";
+import Breadcrumbs from "../../../../components/Breadcrumbs";
 
 function UserForm() {
   let { id } = useParams();
@@ -82,17 +83,7 @@ function UserForm() {
   return (
     <>
       <div className="pagetitle">
-        {user.id && <h1>Cập nhật User: {userOld.name}</h1>}
-        {!user.id && <h1>Tạo User mới</h1>}
-        <nav>
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <a href="index.html">test1</a>
-            </li>
-            <li className="breadcrumb-item">test2</li>
-            <li className="breadcrumb-item active">test3</li>
-          </ol>
-        </nav>
+        <h1>{!!user.id ? `CẬP NHẬT USER: ${userOld.name}` : "TẠO MỚI USER"}</h1>
       </div>
       <div className="container">
         <div className="card">

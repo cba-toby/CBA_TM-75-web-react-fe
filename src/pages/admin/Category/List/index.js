@@ -4,6 +4,7 @@ import axiosClient from "../../../../axios-client";
 import { Link } from "react-router-dom";
 import SearchInput from "../../../../components/Input/SearchInput";
 import PaginationComponent from "../../../../components/Pagination";
+import Loading from "../../../../components/Loading";
 
 function ListCategory() {
   const [categories, setCategories] = useState([]);
@@ -34,7 +35,6 @@ function ListCategory() {
 
   const getCategories = (page = currentPage, searchValue = null) => {
     let url = `/admin/category?page=${page}`;
-    console.log(searchValue);
     if (searchValue) {
       url += `&search=${searchValue}`;
     }
@@ -44,8 +44,8 @@ function ListCategory() {
         setLoading(false);
         setCategories(data.categories);
         setCategoriesParent(data.categories_parent);
-        setPageCount(data.categories.meta.last_page);
-        setCurrentPage(data.categories.meta.current_page);
+        setPageCount(data.pagination.last_page);
+        setCurrentPage(data.pagination.current_page);
       })
       .catch((error) => {});
   };
@@ -89,6 +89,7 @@ function ListCategory() {
 
               <table className="table table-striped">
                 <TableHeader headers={headers} />
+                {loading && <Loading length={headers.length} />}
                 {!loading && (
                   <>
                     <tbody>
@@ -120,7 +121,7 @@ function ListCategory() {
                             </td>
                             <td>
                               <Link
-                                to={`/admin/categories/${category.id}`}
+                                to={`/admin/category/${category.id}`}
                                 className="btn btn-outline-secondary"
                               >
                                 Edit

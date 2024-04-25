@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import axiosClient from "../../../axios-client";
 import { showNotification } from "../../../components/Notification";
 import { ToastContainer } from "react-toastify";
+import Breadcrumbs from "../../../components/Breadcrumbs";
 import "react-toastify/dist/ReactToastify.css";
 
 function DefaultLayout() {
@@ -40,6 +41,7 @@ function DefaultLayout() {
       <Sidebar />
       <main id="main" className="main">
         <ToastContainer />
+        <Breadcrumbs />
         <Outlet />
       </main>
     </div>

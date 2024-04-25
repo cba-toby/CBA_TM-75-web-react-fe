@@ -61,12 +61,16 @@ const publicRoutes = createBrowserRouter([
             element: <UserForm key="userUpdate" />,
           },
           {
-            path: "category/list",
+            path: "category",
             element: <Category />,
           },
           {
             path: "category/create",
-            element: <CategoryForm />,
+            element: <CategoryForm key="categoryCreate"/>,
+          },
+          {
+            path: "category/:id",
+            element: <CategoryForm key="categoryUpdate" />,
           },
         ],
       },

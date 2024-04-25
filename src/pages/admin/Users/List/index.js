@@ -101,7 +101,7 @@ function Users() {
             <table className="table table-striped">
               <TableHeader headers={headers} />
               {/* Loading */}
-              {loading && <Loading />}
+              {loading && <Loading length={headers.length} />}
 
               {/* Data */}
               {!loading && (

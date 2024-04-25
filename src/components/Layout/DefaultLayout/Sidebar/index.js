@@ -59,7 +59,7 @@ function Sidebar() {
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <Link to="/admin/category/list">
+              <Link to="/admin/category">
                 <i className="bi bi-circle"></i>
                 <span>Danh sách</span>
               </Link>
