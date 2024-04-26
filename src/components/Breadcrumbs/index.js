@@ -3,20 +3,36 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 
 const breadcrumbs = {
+  // Page Create User
   "/admin/users/create": [
     { label: "Trang chủ", link: "/admim" },
     { label: "Người dùng", link: "/admin/users" },
-    { label: "Tạo mới", link: "/admin/users/create", active: true },
+    { label: "Tạo mới", link: "", active: true },
   ],
+  // Page Edit User
+  "/admin/users/:id": [
+    { label: "Trang chủ", link: "/admim" },
+    { label: "Người dùng", link: "/admin/users" },
+    { label: "Chỉnh sửa", active: true },
+  ],
+  // Page List User
   "/admin/users": [
     { label: "Trang chủ", link: "/admin" },
     { label: "Người dùng", link: "/admin/users", active: true },
   ],
+  // Page Create Category
   "/admin/category/create": [
     { label: "Trang chủ", link: "/admin" },
     { label: "Danh mục", link: "/admin/category" },
     { label: "Tạo mới", link: "/admin/category/create", active: true },
   ],
+  // Page Edit Category
+  "/admin/category/:id": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Danh mục", link: "/admin/category" },
+    { label: "Chỉnh sửa", link: "", active: true },
+  ],
+  // Page List Category
   "/admin/category": [
     { label: "Trang chủ", link: "/admin" },
     { label: "Danh mục", link: "/admin/category", active: true },
@@ -26,9 +42,16 @@ const breadcrumbs = {
 function Breadcrumbs() {
   const location = useLocation();
   const path = location.pathname;
-  const type = "";
+  let baseUrl = path;
 
-  const breadcrumbsList = !breadcrumbs[path] ? [] : breadcrumbs[path] ;
+  // Handle path with id
+  const hasId = /\d+$/.test(path);
+  if(hasId){
+    const newbaseUrl = baseUrl.substring(0, baseUrl.lastIndexOf("/"));
+    baseUrl = newbaseUrl + '/:id';
+  }
+
+  const breadcrumbsList = !breadcrumbs[baseUrl] ? [] : breadcrumbs[baseUrl] ;
 
   return (
     <nav>
