@@ -135,10 +135,6 @@ function UserForm() {
                   <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
-                  &nbsp;
-                  <button type="reset" className="btn btn-secondary">
-                    Reset
-                  </button>
                 </div>
               </form>
             )}

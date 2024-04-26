@@ -1,6 +1,13 @@
 import React from "react";
 
-const SelectInput = ({ label, id, options, defaultOption, onChange }) => {
+const SelectInput = ({
+  label,
+  id,
+  options,
+  defaultOption,
+  onChange,
+  value = 0,
+}) => {
   return (
     <div className="row mb-3">
       <label htmlFor={id} className="col-sm-2 col-form-label">
@@ -13,6 +20,7 @@ const SelectInput = ({ label, id, options, defaultOption, onChange }) => {
             id={id}
             aria-label="State"
             onChange={onChange}
+            defaultValue={value}
           >
             <option defaultChecked="">{defaultOption}</option>
             {options &&

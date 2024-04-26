@@ -3,12 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import TextInput from "../../../../components/Input/TextInput";
 import SelectInput from "../../../../components/Input/SelectInput";
 import axiosClient from "../../../../axios-client";
+import { useStateContext } from "../../../../context/ContextProvider";
 
 function CategoryForm() {
   let { id } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
   const [parent, setParent] = useState(null);
+  const { setNotification } = useStateContext();
   const [category, setCategory] = useState({
     id: null,
     title: "",
@@ -16,24 +19,25 @@ function CategoryForm() {
     meta_title: "",
   });
   useEffect(() => {
-    setLoading(true);
-    axiosClient
-      .get(`/admin/category/parent`)
-      .then(({ data }) => {
-        setLoading(false);
-        setParent(data.data);
-      })
-      .catch((error) => {
-        setLoading(false);
-      });
     if (id) {
       setLoading(true);
       axiosClient
         .get(`/admin/category/show/${id}`)
         .then(({ data }) => {
           setLoading(false);
-          console.log(data);
-          setCategory(data);
+          setParent(data.categories_parent);
+          setCategory(data.category);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      axiosClient
+        .get(`/admin/category/parent`)
+        .then(({ data }) => {
+          setLoading(false);
+          setParent(data.data);
         })
         .catch((error) => {
           setLoading(false);
@@ -41,27 +45,54 @@ function CategoryForm() {
     }
   }, [id]);
 
+  const handleReset = () => {
+    console.log("reset");
+    setCategory({
+      id: null,
+      title: "",
+      slug: "",
+      meta_title: "",
+    });
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(category);
-    axiosClient
-      .post("/admin/category", category)
-      .then((data) => {
-        console.log(data);
-        // navigate("/admin/users");
-        // setErrors(null);
-        // setNotification("");
-        // setNotification({
-        //   type: "success",
-        //   data: "User was successfully created",
-        // });
-      })
-      .catch((error) => {
-        const { response } = error;
-        if (response.status === 422) {
-          setErrors(response.data.errors);
-        }
-      });
+    if (category.id) {
+      axiosClient
+        .put(`/admin/category/update/${category.id}`, category)
+        .then((data) => {
+          navigate("/admin/category");
+          setErrors(null);
+          setNotification("");
+          setNotification({
+            type: "success",
+            data: "Category was successfully updated",
+          });
+        })
+        .catch((error) => {
+          const { response } = error;
+          if (response.status === 422) {
+            setErrors(response.data.errors);
+          }
+        });
+    } else {
+      axiosClient
+        .post("/admin/category", category)
+        .then((data) => {
+          navigate("/admin/category");
+          setErrors(null);
+          setNotification({
+            type: "success",
+            data: "Category was successfully created",
+          });
+        })
+        .catch((error) => {
+          const { response } = error;
+          if (response.status === 422) {
+            setErrors(response.data.errors);
+          }
+        });
+    }
   };
 
   return (
@@ -84,7 +115,6 @@ function CategoryForm() {
                   placeholder="Tiêu đề"
                   isRequired="true"
                 />
-
                 <SelectInput
                   label="Danh mục cha"
                   id="floatingSelect"
@@ -93,6 +123,7 @@ function CategoryForm() {
                   onChange={(e) =>
                     setCategory({ ...category, parent_id: e.target.value })
                   }
+                  value={category.parent_id}
                 />
                 <TextInput
                   label="Slug"
@@ -111,21 +142,9 @@ function CategoryForm() {
                   }
                   placeholder="Tiêu đề meta"
                 />
-
                 <div className="text-center">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{ margin: "10px" }}
-                  >
+                  <button type="submit" className="btn btn-primary">
                     Submit
-                  </button>
-                  <button
-                    type="reset"
-                    className="btn btn-secondary"
-                    style={{ margin: "10px" }}
-                  >
-                    Reset
                   </button>
                 </div>
               </form>
