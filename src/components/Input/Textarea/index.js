@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
-function SummaryInput({ summary }) {
+function TextareaInput({
+  label,
+  value,
+  onChange,
+  placeholder,
+  isRequired = false,
+}) {
+  const [inputValue, setInputValue] = useState(value || "");
+
+  const handleChange = (ev) => {
+    setInputValue(ev.target.value);
+    onChange(ev.target.value);
+  };
   return (
     <div className="row mb-3">
       <label htmlFor="inputText" className="col-sm-2 col-form-label">
-        Tóm tắt
+        {label}
       </label>
       <div className="col-sm-10">
         <div className="form-floating">
@@ -13,13 +25,14 @@ function SummaryInput({ summary }) {
             placeholder="Tóm tắt"
             id="floatingTextarea"
             style={{ height: "100px" }}
-            value={summary} // Bind summary value to textarea value
+            value={inputValue}
+            onChange={handleChange}
           ></textarea>
-          <label htmlFor="floatingTextarea">Address</label>
+          <label htmlFor="floatingTextarea">{placeholder}</label>
         </div>
       </div>
     </div>
   );
 }
 
-export default SummaryInput;
+export default TextareaInput;

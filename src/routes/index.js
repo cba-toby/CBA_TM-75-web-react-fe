@@ -83,6 +83,10 @@ const publicRoutes = createBrowserRouter([
             path: "posts/create",
             element: <PostForm key="categoryCreate" />,
           },
+          {
+            path: "posts/:id",
+            element: <PostForm key="categoryUpdate" />,
+          },
         ],
       },
     ],
