@@ -79,7 +79,6 @@ function Users() {
 
   return (
     <div>
-      <h1>User admin</h1>
       <div className="container">
         <div className="card">
           <div className="card-body">

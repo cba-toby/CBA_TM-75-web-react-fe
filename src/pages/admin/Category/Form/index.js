@@ -11,6 +11,7 @@ function CategoryForm() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
   const [parent, setParent] = useState(null);
+  const [categoryOld, setCategoryOld] = useState(null);
   const { setNotification } = useStateContext();
   const [category, setCategory] = useState({
     id: null,
@@ -19,20 +20,20 @@ function CategoryForm() {
     meta_title: "",
   });
   useEffect(() => {
+    setLoading(true);
     if (id) {
-      setLoading(true);
       axiosClient
         .get(`/admin/category/show/${id}`)
         .then(({ data }) => {
           setLoading(false);
           setParent(data.categories_parent);
           setCategory(data.category);
+          setCategoryOld(data.category);
         })
         .catch((error) => {
           setLoading(false);
         });
     } else {
-      setLoading(true);
       axiosClient
         .get(`/admin/category/parent`)
         .then(({ data }) => {
@@ -98,12 +99,23 @@ function CategoryForm() {
   return (
     <>
       <div className="pagetitle">
-        <h1>TẠO DANH MỤC</h1>
+        <h1>
+          {!!category.id
+            ? `CẬP NHẬT DANH MỤC: ${categoryOld.title}`
+            : "TẠO MỚI DANH MỤC"}
+        </h1>
       </div>
       <div className="container">
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Danh Mục</h5>
+            <h5 className="card-title">Biểu mẫu</h5>
+            {errors && (
+              <div style={{ color: "red" }}>
+                {Object.keys(errors).map((key) => (
+                  <p key={key}>{errors[key][0]}</p>
+                ))}
+              </div>
+            )}
             {!loading && (
               <form onSubmit={onSubmit}>
                 <TextInput

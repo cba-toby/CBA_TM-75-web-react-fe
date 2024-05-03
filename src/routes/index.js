@@ -13,6 +13,9 @@ import CategoryForm from "../pages/admin/Category/Form";
 
 import User from "../pages/admin/Users/List";
 import UserForm from "../pages/admin/Users/Form";
+
+import Post from "../pages/admin/Posts/List";
+import PostForm from "../pages/admin/Posts/Form";
 // Public routes
 const publicRoutes = createBrowserRouter([
   {
@@ -66,11 +69,23 @@ const publicRoutes = createBrowserRouter([
           },
           {
             path: "category/create",
-            element: <CategoryForm key="categoryCreate"/>,
+            element: <CategoryForm key="categoryCreate" />,
           },
           {
             path: "category/:id",
             element: <CategoryForm key="categoryUpdate" />,
+          },
+          {
+            path: "posts",
+            element: <Post />,
+          },
+          {
+            path: "posts/create",
+            element: <PostForm key="categoryCreate" />,
+          },
+          {
+            path: "posts/:id",
+            element: <PostForm key="categoryUpdate" />,
           },
         ],
       },

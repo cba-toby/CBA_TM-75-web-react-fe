@@ -37,6 +37,23 @@ const breadcrumbs = {
     { label: "Trang chủ", link: "/admin" },
     { label: "Danh mục", link: "/admin/category", active: true },
   ],
+  // Page Create Post
+  "/admin/posts/create": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Bài viết", link: "/admin/posts" },
+    { label: "Tạo mới", link: "", active: true },
+  ],
+  // Page Edit Post
+  "/admin/posts/:id": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Bài viết", link: "/admin/posts" },
+    { label: "Chỉnh sửa", link: "", active: true },
+  ],
+  // Page List Post
+  "/admin/posts": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Bài viết", link: "/admin/posts", active: true },
+  ],
 };
 
 function Breadcrumbs() {
@@ -46,12 +63,12 @@ function Breadcrumbs() {
 
   // Handle path with id
   const hasId = /\d+$/.test(path);
-  if(hasId){
+  if (hasId) {
     const newbaseUrl = baseUrl.substring(0, baseUrl.lastIndexOf("/"));
-    baseUrl = newbaseUrl + '/:id';
+    baseUrl = newbaseUrl + "/:id";
   }
 
-  const breadcrumbsList = !breadcrumbs[baseUrl] ? [] : breadcrumbs[baseUrl] ;
+  const breadcrumbsList = !breadcrumbs[baseUrl] ? [] : breadcrumbs[baseUrl];
 
   return (
     <nav>

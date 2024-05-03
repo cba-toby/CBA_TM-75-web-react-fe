@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../../../../axios-client";
 import { useStateContext } from "../../../../context/ContextProvider";
 import TextInput from "../../../../components/Input/TextInput";
-import Breadcrumbs from "../../../../components/Breadcrumbs";
 
 function UserForm() {
   let { id } = useParams();
@@ -88,7 +87,7 @@ function UserForm() {
       <div className="container">
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Danh Mục</h5>
+            <h5 className="card-title">Biểu mẫu</h5>
             {loading && <p>Loading...</p>}
             {errors && (
               <div style={{ color: "red" }}>

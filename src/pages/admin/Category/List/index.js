@@ -18,7 +18,7 @@ function ListCategory() {
   const { setNotification } = useStateContext();
   const headers = [
     { label: "STT", width: "10%" },
-    { label: "Tiêu đề" },
+    { label: "Tiêu đề", width: "20%" },
     { label: "Cấp độ", width: "10%" },
     { label: "Danh mục cha", width: "20%" },
     { label: "Slug", width: "20%" },
@@ -91,7 +91,6 @@ function ListCategory() {
   return (
     <>
       <div>
-        <h1>User admin</h1>
         <div className="container">
           <div className="card">
             <div className="card-body">
