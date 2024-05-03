@@ -19,6 +19,7 @@ function PostForm() {
   const [isRequired, setIsRequired] = useState(true);
   const [isRequiredPassword, setIsRequiredPassword] = useState(true);
   const [categories, setCategories] = useState(null);
+  const [slider, setSlider] = useState([]);
   const [post, setPost] = useState({
     id: null,
     title: "",
@@ -28,7 +29,7 @@ function PostForm() {
     summary: "",
     content: "",
     category_id: "",
-    published: false,
+    image: "",
   });
 
   useEffect(() => {
@@ -42,6 +43,7 @@ function PostForm() {
           setCategories(data.categories);
           setPost(data.post);
           setPostOld(data.post);
+          setSlider(data.image);
         })
         .catch((error) => {
           setLoading(false);
@@ -52,6 +54,7 @@ function PostForm() {
         .then(({ data }) => {
           setLoading(false);
           setCategories(data.data);
+          setSlider(data.image);
         })
         .catch((error) => {
           setLoading(false);
@@ -60,12 +63,20 @@ function PostForm() {
   }, []);
 
   const onSubmit = (e) => {
-    e.preventDefault();
     if (post.id) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("category_id", post.category_id);
+      formData.append("meta_title", post.meta_title);
+      formData.append("slug", post.slug);
+      formData.append("summary", post.summary);
+      formData.append("content", post.content);
+      formData.append("image", post.image);
       axiosClient
-        .put(`/admin/post/update/${post.id}`, post)
+        .post(`/admin/post/update/${post.id}`, formData)
         .then((data) => {
-          // navigate("/admin/category");
+          navigate("/admin/posts");
           setErrors(null);
           setNotification("");
           setNotification({
@@ -75,14 +86,24 @@ function PostForm() {
         })
         .catch((error) => {
           const { response } = error;
-          console.log("error: ", error);
           if (response.status === 422) {
             setErrors(response.data.errors);
+          } else {
+            setErrors(response.data);
           }
         });
     } else {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("category_id", post.category_id);
+      formData.append("meta_title", post.meta_title);
+      formData.append("slug", post.slug);
+      formData.append("summary", post.summary);
+      formData.append("content", post.content);
+      formData.append("image", post.image);
       axiosClient
-        .post("/admin/post", post)
+        .post("/admin/post", formData)
         .then((data) => {
           navigate("/admin/posts");
           setErrors(null);
@@ -104,6 +125,11 @@ function PostForm() {
     setPost({ ...post, content });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setPost({ ...post, image: file });
+  };
+
   return (
     <>
       <div className="pagetitle">
@@ -116,7 +142,7 @@ function PostForm() {
       <div className="container">
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Danh Mục</h5>
+            <h5 className="card-title">Biểu mẫu</h5>
 
             {loading && <p>Loading...</p>}
             {errors && (
@@ -135,6 +161,7 @@ function PostForm() {
                   placeholder="title"
                   isRequired={isRequired}
                 />
+
                 <SelectInput
                   label="Thể loại"
                   id="floatingSelect"
@@ -144,6 +171,7 @@ function PostForm() {
                     setPost({ ...post, category_id: e.target.value })
                   }
                   value={post.category_id}
+                  isRequired={isRequired}
                 />
                 <TextInput
                   label="meta_title"
@@ -158,6 +186,37 @@ function PostForm() {
                   placeholder="slug"
                   isRequired={isRequired}
                 />
+                <div className="row mb-3">
+                  <label
+                    htmlFor="inputText"
+                    className="col-sm-2 col-form-label"
+                    style={{ display: "flex", alignItems: "center" }} // Thêm inline CSS cho label
+                  ></label>
+                  <div
+                    className="col-sm-10"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    {" "}
+                    {/* Thêm inline CSS cho div */}
+                    <img
+                      src={slider}
+                      alt=""
+                      style={{
+                        height: "auto",
+                        width: "200px",
+                        marginRight: "20px",
+                        objectFit: "cover",
+                      }} // Thêm inline CSS cho ảnh
+                    />
+                    <input
+                      type="file"
+                      className="form-control"
+                      onChange={handleImageChange}
+                      style={{ flex: 1 }} // Thêm inline CSS cho input file
+                    />
+                  </div>
+                </div>
+
                 <TextareaInput
                   label="Tóm tắt"
                   value={post.summary}

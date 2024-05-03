@@ -29,6 +29,7 @@ function Post() {
   const headers = [
     { label: "STT", width: "10%" },
     { label: "Tiêu đề", width: "30%" },
+    { label: "Image", width: "20%" },
     { label: "Thể loại", width: "20%" },
     { label: "Active", width: "20%" },
   ];
@@ -41,7 +42,6 @@ function Post() {
       .get("/admin/post")
       .then(({ data }) => {
         setLoading(false);
-        console.log(data.categories);
         setPosts(data.posts.data);
         setCategories(data.categories);
       })
@@ -76,6 +76,16 @@ function Post() {
     }
   };
 
+  const handleImage = (image) => {
+    return (
+      <img
+        src={`http://blog.toby.com/get-image/${image}`}
+        alt="Image"
+        width="100"
+      />
+    );
+  };
+
   return (
     <>
       <div>
@@ -95,7 +105,19 @@ function Post() {
                           <tr key={post.id}>
                             <th scope="row">{post.id}</th>
                             <td>{post.title}</td>
-
+                            <td style={{}}>
+                              <div
+                                style={{
+                                  width: "auto",
+                                  height: "100px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                {handleImage(post.image)}
+                              </div>
+                            </td>
                             <td>
                               {post.category_id && (
                                 <span className="badge bg-secondary">

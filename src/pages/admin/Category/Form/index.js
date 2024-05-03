@@ -108,7 +108,7 @@ function CategoryForm() {
       <div className="container">
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Danh Mục</h5>
+            <h5 className="card-title">Biểu mẫu</h5>
             {errors && (
               <div style={{ color: "red" }}>
                 {Object.keys(errors).map((key) => (

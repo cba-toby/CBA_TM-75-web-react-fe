@@ -87,7 +87,7 @@ function UserForm() {
       <div className="container">
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Danh Mục</h5>
+            <h5 className="card-title">Biểu mẫu</h5>
             {loading && <p>Loading...</p>}
             {errors && (
               <div style={{ color: "red" }}>
