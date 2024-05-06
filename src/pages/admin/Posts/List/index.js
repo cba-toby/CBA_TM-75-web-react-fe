@@ -37,11 +37,17 @@ function Post() {
     getPosts();
   }, []);
 
-  const getPosts = () => {
+  const getPosts = (page = currentPage, searchValue = null) => {
+    let url = `/admin/post?page=${page}`;
+    if (searchValue) {
+      url += `&search=${searchValue}`;
+    }
     axiosClient
-      .get("/admin/post")
+      .get(url)
       .then(({ data }) => {
         setLoading(false);
+        setCurrentPage(data.posts.current_page);
+        setPageCount(data.posts.last_page);
         setPosts(data.posts.data);
         setCategories(data.categories);
       })
@@ -86,6 +92,20 @@ function Post() {
     );
   };
 
+  const handlePageChange = (selectedItem) => {
+    const newPage = selectedItem.selected + 1;
+    setCurrentPage(newPage);
+    getPosts(newPage);
+  };
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    setLoading(true);
+    clearTimeout(searchTimeout);
+    const timeout = setTimeout(() => getPosts(null, value), 1000);
+    setSearchTimeout(timeout);
+  };
+
   return (
     <>
       <div>
@@ -93,7 +113,16 @@ function Post() {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">List Posts</h5>
-              <div className="datatable-top"></div>
+              <div className="datatable-top">
+                <SearchInput handleSearch={handleSearch} />
+                <div style={{ justifyContent: "right", alignItems: "center" }}>
+                  <PaginationComponent
+                    pageCount={pageCount}
+                    currentPage={currentPage - 1}
+                    handlePageChange={handlePageChange}
+                  />
+                </div>
+              </div>
               <table className="table table-striped">
                 <TableHeader headers={headers} />
                 {loading && <Loading length={headers.length} />}
