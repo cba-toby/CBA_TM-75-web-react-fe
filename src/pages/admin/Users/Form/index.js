@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../../../../axios-client";
 import { useStateContext } from "../../../../context/ContextProvider";
 import TextInput from "../../../../components/Input/TextInput";
+import ImageInput from "../../../../components/Input/ImageInput";
+import TextareaInput from "../../../../components/Input/Textarea";
 
 function UserForm() {
   let { id } = useParams();
@@ -13,12 +15,18 @@ function UserForm() {
   const { setNotification } = useStateContext();
   const [isRequired, setIsRequired] = useState(true);
   const [isRequiredPassword, setIsRequiredPassword] = useState(true);
+  const [imageBefore, setImageBefore] = useState([]);
   const [user, setUser] = useState({
     id: null,
     name: "",
     email: "",
     password: "",
     password_confirmation: "",
+    image: "",
+    link_facebook: "",
+    link_instagram: "",
+    link_x: "",
+    info: "",
   });
 
   useEffect(() => {
@@ -29,8 +37,9 @@ function UserForm() {
         .get(`/admin/users/show/${id}`)
         .then(({ data }) => {
           setLoading(false);
-          setUser(data);
-          setUserOld(data);
+          setUser(data.user);
+          setUserOld(data.user);
+          setImageBefore(data.image);
         })
         .catch((error) => {
           setLoading(false);
@@ -40,9 +49,23 @@ function UserForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (user.id) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("name", user.name);
+      formData.append("email", user.email);
+      formData.append("password", user.password);
+      formData.append("password_confirmation", user.password_confirmation);
+      formData.append("link_facebook", user.link_facebook);
+      formData.append("link_instagram", user.link_instagram);
+      formData.append("link_x", user.link_x);
+      formData.append("info", user.info);
+      if (user.image) {
+        formData.append("image", user.image);
+      }
       axiosClient
-        .put(`/admin/users/update/${user.id}`, user)
+        .post(`/admin/users/update/${user.id}`, formData)
         .then((data) => {
           navigate("/admin/users");
           setErrors(null);
@@ -59,8 +82,21 @@ function UserForm() {
           }
         });
     } else {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("name", user.name);
+      formData.append("email", user.email);
+      formData.append("password", user.password);
+      formData.append("password_confirmation", user.password_confirmation);
+      formData.append("link_facebook", user.link_facebook);
+      formData.append("link_instagram", user.link_instagram);
+      formData.append("link_x", user.link_x);
+      formData.append("info", user.info);
+      if (user.image) {
+        formData.append("image", user.image);
+      }
       axiosClient
-        .post("/admin/users", user)
+        .post("/admin/users", formData)
         .then((data) => {
           navigate("/admin/users");
           setErrors(null);
@@ -77,6 +113,11 @@ function UserForm() {
           }
         });
     }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setUser({ ...user, image: file });
   };
 
   return (
@@ -129,6 +170,38 @@ function UserForm() {
                   placeholder="Password Confirmation"
                   type="password"
                   isRequired={isRequiredPassword}
+                />
+                <ImageInput
+                  handleImageChange={handleImageChange}
+                  imageBefore={imageBefore}
+                />
+                <TextInput
+                  label="Link Facebook"
+                  value={user.link_facebook}
+                  onChange={(value) =>
+                    setUser({ ...user, link_facebook: value })
+                  }
+                  placeholder="Facebook"
+                />
+                <TextInput
+                  label="Link Instagram"
+                  value={user.link_instagram}
+                  onChange={(value) =>
+                    setUser({ ...user, link_instagram: value })
+                  }
+                  placeholder="Instagram"
+                />
+                <TextInput
+                  label="Link X"
+                  value={user.link_x}
+                  onChange={(value) => setUser({ ...user, link_x: value })}
+                  placeholder="X"
+                />
+                <TextareaInput
+                  label="Tóm tắt"
+                  value={user.info}
+                  onChange={(value) => setUser({ ...user, info: value })}
+                  placeholder="Tóm tắt"
                 />
                 <div className="text-center">
                   <button type="submit" className="btn btn-primary">

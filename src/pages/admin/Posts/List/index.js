@@ -83,9 +83,10 @@ function Post() {
   };
 
   const handleImage = (image) => {
+    console.log();
     return (
       <img
-        src={`http://blog.toby.com/get-image/${image}`}
+        src={`${process.env.REACT_APP_API_URL}/get-image/${image}`}
         alt="Image"
         width="100"
       />
