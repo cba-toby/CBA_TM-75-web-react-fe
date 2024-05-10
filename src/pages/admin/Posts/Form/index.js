@@ -190,6 +190,8 @@ function PostForm() {
                 <ImageInput
                   handleImageChange={handleImageChange}
                   imageBefore={imageBefore}
+                  label="Image"
+                  isRequired={isRequired}
                 />
                 <TextareaInput
                   label="Tóm tắt"

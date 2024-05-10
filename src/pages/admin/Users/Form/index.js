@@ -40,6 +40,7 @@ function UserForm() {
           setUser(data.user);
           setUserOld(data.user);
           setImageBefore(data.image);
+          console.log(data.user.image);
         })
         .catch((error) => {
           setLoading(false);
@@ -174,6 +175,7 @@ function UserForm() {
                 <ImageInput
                   handleImageChange={handleImageChange}
                   imageBefore={imageBefore}
+                  label="Avatar"
                 />
                 <TextInput
                   label="Link Facebook"

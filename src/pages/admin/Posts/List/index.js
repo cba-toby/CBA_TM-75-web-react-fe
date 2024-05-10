@@ -31,6 +31,7 @@ function Post() {
     { label: "Tiêu đề", width: "30%" },
     { label: "Image", width: "20%" },
     { label: "Thể loại", width: "20%" },
+    { label: "Tác giả", width: "20%" },
     { label: "Active", width: "20%" },
   ];
   useEffect(() => {
@@ -155,6 +156,7 @@ function Post() {
                                 </span>
                               )}
                             </td>
+                            <td>{post.author.name}</td>
                             <td>
                               <Link
                                 to={`/admin/posts/${post.id}`}
