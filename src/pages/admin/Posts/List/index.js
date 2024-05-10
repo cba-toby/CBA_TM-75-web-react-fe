@@ -31,6 +31,7 @@ function Post() {
     { label: "Tiêu đề", width: "30%" },
     { label: "Image", width: "20%" },
     { label: "Thể loại", width: "20%" },
+    { label: "Tác giả", width: "20%" },
     { label: "Active", width: "20%" },
   ];
   useEffect(() => {
@@ -83,9 +84,10 @@ function Post() {
   };
 
   const handleImage = (image) => {
+    console.log();
     return (
       <img
-        src={`http://blog.toby.com/get-image/${image}`}
+        src={`${process.env.REACT_APP_API_URL}/get-image/${image}`}
         alt="Image"
         width="100"
       />
@@ -154,6 +156,7 @@ function Post() {
                                 </span>
                               )}
                             </td>
+                            <td>{post.author.name}</td>
                             <td>
                               <Link
                                 to={`/admin/posts/${post.id}`}

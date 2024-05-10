@@ -6,6 +6,7 @@ import TextInput from "../../../../components/Input/TextInput";
 import EditorInput from "../../../../components/Input/EditorInput";
 import TextareaInput from "../../../../components/Input/Textarea";
 import SelectInput from "../../../../components/Input/SelectInput";
+import ImageInput from "../../../../components/Input/ImageInput";
 
 import { Editor } from "primereact/editor";
 
@@ -19,7 +20,7 @@ function PostForm() {
   const [isRequired, setIsRequired] = useState(true);
   const [isRequiredPassword, setIsRequiredPassword] = useState(true);
   const [categories, setCategories] = useState(null);
-  const [slider, setSlider] = useState([]);
+  const [imageBefore, setImageBefore] = useState([]);
   const [post, setPost] = useState({
     id: null,
     title: "",
@@ -43,7 +44,7 @@ function PostForm() {
           setCategories(data.categories);
           setPost(data.post);
           setPostOld(data.post);
-          setSlider(data.image);
+          setImageBefore(data.image);
         })
         .catch((error) => {
           setLoading(false);
@@ -54,7 +55,7 @@ function PostForm() {
         .then(({ data }) => {
           setLoading(false);
           setCategories(data.data);
-          setSlider(data.image);
+          setImageBefore(data.image);
         })
         .catch((error) => {
           setLoading(false);
@@ -186,37 +187,12 @@ function PostForm() {
                   placeholder="slug"
                   isRequired={isRequired}
                 />
-                <div className="row mb-3">
-                  <label
-                    htmlFor="inputText"
-                    className="col-sm-2 col-form-label"
-                    style={{ display: "flex", alignItems: "center" }} // Thêm inline CSS cho label
-                  ></label>
-                  <div
-                    className="col-sm-10"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    {" "}
-                    {/* Thêm inline CSS cho div */}
-                    <img
-                      src={slider}
-                      alt=""
-                      style={{
-                        height: "auto",
-                        width: "200px",
-                        marginRight: "20px",
-                        objectFit: "cover",
-                      }} // Thêm inline CSS cho ảnh
-                    />
-                    <input
-                      type="file"
-                      className="form-control"
-                      onChange={handleImageChange}
-                      style={{ flex: 1 }} // Thêm inline CSS cho input file
-                    />
-                  </div>
-                </div>
-
+                <ImageInput
+                  handleImageChange={handleImageChange}
+                  imageBefore={imageBefore}
+                  label="Image"
+                  isRequired={isRequired}
+                />
                 <TextareaInput
                   label="Tóm tắt"
                   value={post.summary}

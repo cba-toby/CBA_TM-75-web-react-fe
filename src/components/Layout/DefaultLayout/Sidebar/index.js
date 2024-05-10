@@ -41,13 +41,6 @@ function Sidebar() {
             { to: "/admin/users/create", label: "Tạo mới" },
           ]}
         />
-
-        <li className="nav-item">
-          <a className="nav-link collapsed" href="pages-blank.html">
-            <i className="bi bi-file-earmark"></i>
-            <span>Blank</span>
-          </a>
-        </li>
       </ul>
     </aside>
   );
