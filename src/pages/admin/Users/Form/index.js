@@ -56,8 +56,10 @@ function UserForm() {
       const formData = new FormData();
       formData.append("name", user.name);
       formData.append("email", user.email);
-      formData.append("password", user.password);
-      formData.append("password_confirmation", user.password_confirmation);
+      if (user.password) {
+        formData.append("password", user.password);
+        formData.append("password_confirmation", user.password_confirmation);
+      }
       formData.append("link_facebook", user.link_facebook);
       formData.append("link_instagram", user.link_instagram);
       formData.append("link_x", user.link_x);
