@@ -16,6 +16,9 @@ import UserForm from "../pages/admin/Users/Form";
 
 import Post from "../pages/admin/Posts/List";
 import PostForm from "../pages/admin/Posts/Form";
+
+import PublicPost from "../pages/admin/PublicPost";
+
 // Public routes
 const publicRoutes = createBrowserRouter([
   {
@@ -86,6 +89,10 @@ const publicRoutes = createBrowserRouter([
           {
             path: "posts/:id",
             element: <PostForm key="categoryUpdate" />,
+          },
+          {
+            path: "public-posts",
+            element: <PublicPost />,
           },
         ],
       },

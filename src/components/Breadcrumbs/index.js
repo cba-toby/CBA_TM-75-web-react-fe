@@ -54,6 +54,11 @@ const breadcrumbs = {
     { label: "Trang chủ", link: "/admin" },
     { label: "Bài viết", link: "/admin/posts", active: true },
   ],
+  // Page Create Public Post
+  "/admin/public-posts": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Bài viết", link: "/admin/posts", active: true },
+  ],
 };
 
 function Breadcrumbs() {

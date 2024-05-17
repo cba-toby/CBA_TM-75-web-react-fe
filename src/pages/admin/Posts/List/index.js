@@ -17,7 +17,6 @@ function Post() {
     summary: "",
     content: "",
     category_id: "",
-    published: false,
   });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -75,7 +74,7 @@ function Post() {
           const { response } = error;
           if (response.status === 422) {
             setNotification({
-              type: "warning",
+              type: "info",
               data: response.data.message,
             });
           }

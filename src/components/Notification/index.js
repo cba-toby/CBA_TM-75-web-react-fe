@@ -23,6 +23,9 @@ export const showNotification = (type, message) => {
     case "warning":
       toast.warn(message, options);
       break;
+    case "info":
+      toast.warn(message, options);
+      break;
     default:
       toast.info(message, options);
       break;

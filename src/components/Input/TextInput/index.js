@@ -16,7 +16,7 @@ const TextInput = ({
 
   return (
     <div className="row mb-3">
-      <label htmlFor="inputText" className="col-sm-2 col-form-label">
+      <label htmlFor={label} className="col-sm-2 col-form-label">
         {label}
         {isRequired && <span className="text-danger ml-2"> *</span>}
       </label>

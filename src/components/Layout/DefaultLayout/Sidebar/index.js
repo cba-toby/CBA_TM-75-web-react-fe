@@ -29,6 +29,7 @@ function Sidebar() {
           links={[
             { to: "/admin/posts", label: "Danh sách" },
             { to: "/admin/posts/create", label: "Tạo mới" },
+            { to: "/admin/public-posts", label: "Công khai" },
           ]}
         />
         {/* User */}
