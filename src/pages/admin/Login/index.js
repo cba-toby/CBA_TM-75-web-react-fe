@@ -91,7 +91,7 @@ function LoginAdmin() {
           <div className="invalid-feedback">Please enter your password!</div>
         </div>
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="form-check">
             <input
               className="form-check-input"
@@ -104,18 +104,18 @@ function LoginAdmin() {
               Remember me
             </label>
           </div>
-        </div>
+        </div> */}
         <div className="col-12">
           <button className="btn btn-primary w-100" type="submit">
             Login
           </button>
         </div>
-        <div className="col-12">
+        {/* <div className="col-12">
           <p className="small mb-0">
             Don't have account?{" "}
             <Link to="/admin/auth/register"> Create an account</Link>
           </p>
-        </div>
+        </div> */}
       </form>
     </div>
   );

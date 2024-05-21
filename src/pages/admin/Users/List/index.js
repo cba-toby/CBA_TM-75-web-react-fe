@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosClient from "../../../../axios-client";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../../../../context/ContextProvider";
 import PaginationComponent from "../../../../components/Pagination";
 import Loading from "../../../../components/Loading";
@@ -15,7 +15,7 @@ function Users() {
   const [pageCount, setPageCount] = useState(10);
   const [search, setSearch] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
-
+  const navigate = useNavigate();
   const headers = [
     { label: "#ID", width: "10%" },
     { label: "Tên" },
@@ -49,6 +49,7 @@ function Users() {
       })
       .catch((error) => {
         setLoading(false);
+        navigate("/admin");
       });
   };
 

@@ -18,6 +18,13 @@ import Post from "../pages/admin/Posts/List";
 import PostForm from "../pages/admin/Posts/Form";
 
 import PublicPost from "../pages/admin/PublicPost";
+import ProtectedRoute from "../components/ProtectedRoute";
+
+const createProtectedRoute = (requiredRole, element) => ({
+  element: (
+    <ProtectedRoute requiredRole={requiredRole}>{element}</ProtectedRoute>
+  ),
+});
 
 // Public routes
 const publicRoutes = createBrowserRouter([
@@ -60,23 +67,38 @@ const publicRoutes = createBrowserRouter([
           },
           {
             path: "users/create",
-            element: <UserForm key="userCreate" />,
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <UserForm key="userCreate" />
+            ),
           },
           {
             path: "users/:id",
-            element: <UserForm key="userUpdate" />,
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <UserForm key="userUpdate" />
+            ),
           },
           {
             path: "category",
-            element: <Category />,
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <Category />
+            ),
           },
           {
             path: "category/create",
-            element: <CategoryForm key="categoryCreate" />,
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <CategoryForm key="categoryCreate" />
+            ),
           },
           {
             path: "category/:id",
-            element: <CategoryForm key="categoryUpdate" />,
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <CategoryForm key="categoryUpdate" />
+            ),
           },
           {
             path: "posts",
@@ -92,7 +114,10 @@ const publicRoutes = createBrowserRouter([
           },
           {
             path: "public-posts",
-            element: <PublicPost />,
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <PublicPost />
+            ),
           },
         ],
       },
