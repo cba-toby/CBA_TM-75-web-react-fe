@@ -58,6 +58,14 @@ function Sidebar() {
             ]}
           />
         )}
+         <NavItem
+            name="contact"
+            title="Liên hệ"
+            icon="bi bi-envelope"
+            links={[
+              { to: "/admin/contacts", label: "Danh sách" },
+            ]}
+          />
       </ul>
     </aside>
   );

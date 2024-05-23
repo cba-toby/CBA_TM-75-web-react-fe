@@ -18,7 +18,11 @@ import Post from "../pages/admin/Posts/List";
 import PostForm from "../pages/admin/Posts/Form";
 
 import PublicPost from "../pages/admin/PublicPost";
+
 import ProtectedRoute from "../components/ProtectedRoute";
+
+import ContactList from "../pages/admin/Contact/List";
+import ContactForm from "../pages/admin/Contact/Form";
 
 const createProtectedRoute = (requiredRole, element) => ({
   element: (
@@ -119,6 +123,20 @@ const publicRoutes = createBrowserRouter([
               <PublicPost />
             ),
           },
+          {
+            path: "contacts",
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <ContactList />
+            ),
+          },
+          {
+            path: "contacts/:id",
+            ...createProtectedRoute(
+              process.env.REACT_APP_USER_ROLE,
+              <ContactForm />
+            ),
+          }
         ],
       },
     ],
