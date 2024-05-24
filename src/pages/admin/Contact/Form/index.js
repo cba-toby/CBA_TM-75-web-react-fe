@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import TextareaInput from "../../../../components/Input/Textarea";
 import axiosClient from "../../../../axios-client";
 import SelectInput from "../../../../components/Input/SelectInput";
+import { useStateContext } from "../../../../context/ContextProvider";
 
 function ContactForm() {
   let { id } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [reply, setReply] = useState("");
+  const [errors, setErrors] = useState(null);
+  const { setNotification } = useStateContext();
   const [contact, setContact] = useState({
     id: null,
     name: "",
@@ -15,6 +19,12 @@ function ContactForm() {
     phone: "",
     status: "",
     message: "",
+  });
+  const [contactReplys, setContactReplys] = useState({
+    id: null,
+    content: "",
+    mail_form: "",
+    created_at: "",
   });
 
   useEffect(() => {
@@ -28,6 +38,7 @@ function ContactForm() {
       .then(({ data }) => {
         setLoading(false);
         setContact(data.contact);
+        setContactReplys(data.contact_reply);
       })
       .catch((error) => {
         setLoading(false);
@@ -54,10 +65,18 @@ function ContactForm() {
         status: contact.status,
       })
       .then(({ data }) => {
-        console.log(data);
+        setErrors(null);
+        setNotification({
+          type: "success",
+          data: "Phản hồi thành công",
+        });
+        navigate("/admin/contacts");
       })
       .catch((error) => {
-        console.log(error);
+        const { response } = error;
+        if (response.status === 422) {
+          setErrors(response.data.errors);
+        }
       });
   };
 
@@ -69,7 +88,6 @@ function ContactForm() {
 
   return (
     <>
-
       <section className="section">
         <div className="row">
           <div className="col-lg-6">
@@ -107,6 +125,31 @@ function ContactForm() {
                       {convertDateTime(contact.created_at)}
                     </div>
                   </div>
+                  <hr />
+                  <h5 className="card-title">Nội dung Phản hồi</h5>
+                  <table className="table table-bordered border-primary">
+                    <thead>
+                      <tr>
+                        <th scope="col" style={{ width: "10%" }}>
+                          #
+                        </th>
+                        <th scope="col" style={{ width: "55%" }}>
+                          Nội dung
+                        </th>
+                        <th scope="col">Thời gian</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Array.isArray(contactReplys) &&
+                        contactReplys.map((contactReply) => (
+                          <tr key={contactReply.id}>
+                            <th scope="row">{contactReply.id}</th>
+                            <td style={{ whiteSpace: 'pre-line' }}>{contactReply.content}</td> 
+                            <td>{convertDateTime(contactReply.created_at)}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -117,6 +160,13 @@ function ContactForm() {
               <div className="card-body">
                 <h5 className="card-title">Trả lời</h5>
                 <form onSubmit={onSubmit}>
+                  {errors && (
+                    <div style={{ color: "red" }}>
+                      {Object.keys(errors).map((key) => (
+                        <p key={key}>{errors[key][0]}</p>
+                      ))}
+                    </div>
+                  )}
                   <div className="text-center">
                     <TextareaInput
                       label="Nội dung"
