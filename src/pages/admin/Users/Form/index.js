@@ -5,6 +5,7 @@ import { useStateContext } from "../../../../context/ContextProvider";
 import TextInput from "../../../../components/Input/TextInput";
 import ImageInput from "../../../../components/Input/ImageInput";
 import TextareaInput from "../../../../components/Input/Textarea";
+import SelectInput from "../../../../components/Input/SelectInput";
 
 function UserForm() {
   let { id } = useParams();
@@ -27,6 +28,7 @@ function UserForm() {
     link_instagram: "",
     link_x: "",
     info: "",
+    role: "",
   });
 
   useEffect(() => {
@@ -40,7 +42,6 @@ function UserForm() {
           setUser(data.user);
           setUserOld(data.user);
           setImageBefore(data.image);
-          console.log(data.user.image);
         })
         .catch((error) => {
           setLoading(false);
@@ -64,6 +65,7 @@ function UserForm() {
       formData.append("link_instagram", user.link_instagram);
       formData.append("link_x", user.link_x);
       formData.append("info", user.info);
+      formData.append("role", user.role);
       if (user.image) {
         formData.append("image", user.image);
       }
@@ -95,6 +97,7 @@ function UserForm() {
       formData.append("link_instagram", user.link_instagram);
       formData.append("link_x", user.link_x);
       formData.append("info", user.info);
+      formData.append("role", user.role);
       if (user.image) {
         formData.append("image", user.image);
       }
@@ -122,6 +125,11 @@ function UserForm() {
     const file = e.target.files[0];
     setUser({ ...user, image: file });
   };
+
+  const roleList = [
+    { id: 1, value: 1, title: "Admin" },
+    { id: 3, value: 3, title: "User" },
+  ];
 
   return (
     <>
@@ -206,6 +214,14 @@ function UserForm() {
                   value={user.info}
                   onChange={(value) => setUser({ ...user, info: value })}
                   placeholder="Tóm tắt"
+                />
+                <SelectInput
+                  label="Phân quyền"
+                  id="floatingSelect"
+                  options={roleList}
+                  defaultOption="Chọn quyền ..."
+                  onChange={(e) => setUser({ ...user, role: e.target.value })}
+                  value={user.role}
                 />
                 <div className="text-center">
                   <button type="submit" className="btn btn-primary">

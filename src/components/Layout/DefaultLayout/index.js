@@ -15,9 +15,14 @@ function DefaultLayout() {
 
   useEffect(() => {
     if (token) {
-      axiosClient.get("admin/user").then(({ data }) => {
-        setUser(data);
-      });
+      axiosClient
+        .get("admin/user")
+        .then(({ data }) => {
+          setUser(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [token]);
 

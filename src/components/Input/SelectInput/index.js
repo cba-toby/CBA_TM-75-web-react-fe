@@ -24,7 +24,7 @@ const SelectInput = ({
             onChange={onChange}
             defaultValue={value}
           >
-            <option defaultChecked="">{defaultOption}</option>
+            <option defaultChecked="" value="">{defaultOption}</option>
             {options &&
               Array.isArray(options) &&
               options.map((item) => (

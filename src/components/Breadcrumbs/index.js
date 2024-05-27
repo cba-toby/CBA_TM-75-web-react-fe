@@ -54,6 +54,21 @@ const breadcrumbs = {
     { label: "Trang chủ", link: "/admin" },
     { label: "Bài viết", link: "/admin/posts", active: true },
   ],
+  // Page Create Public Post
+  "/admin/public-posts": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Bài viết", link: "/admin/posts", active: true },
+  ],
+   // Page Contact
+   "/admin/contacts": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Liên hệ", link: "/admin/contacts", active: true },
+  ],
+  "/admin/contacts/:id": [
+    { label: "Trang chủ", link: "/admin" },
+    { label: "Liên hệ", link: "/admin/contacts"},
+    { label: "Phản hồi", link: "/admin/contacts", active: true },
+  ],
 };
 
 function Breadcrumbs() {
