@@ -98,10 +98,10 @@ function ContactForm() {
                   id="profile-overview"
                   role="tabpanel"
                 >
-                  <h5 className="card-title">Nội dung liên hệ</h5>
+                  <h5 className="card-title">Content liên hệ</h5>
 
                   <div className="row">
-                    <div className="col-lg-3 col-md-4 label ">Tên</div>
+                    <div className="col-lg-3 col-md-4 label ">Name</div>
                     <div className="col-lg-9 col-md-8">{contact.name}</div>
                   </div>
 
@@ -116,7 +116,7 @@ function ContactForm() {
                   </div>
 
                   <div className="row">
-                    <div className="col-lg-3 col-md-4 label">Nội dung</div>
+                    <div className="col-lg-3 col-md-4 label">Content</div>
                     <div className="col-lg-9 col-md-8">{contact.content}</div>
                   </div>
                   <div className="row">
@@ -126,7 +126,7 @@ function ContactForm() {
                     </div>
                   </div>
                   <hr />
-                  <h5 className="card-title">Nội dung Phản hồi</h5>
+                  <h5 className="card-title">Content Phản hồi</h5>
                   <table className="table table-bordered border-primary">
                     <thead>
                       <tr>
@@ -134,7 +134,7 @@ function ContactForm() {
                           #
                         </th>
                         <th scope="col" style={{ width: "55%" }}>
-                          Nội dung
+                          Content
                         </th>
                         <th scope="col">Thời gian</th>
                       </tr>
@@ -169,10 +169,10 @@ function ContactForm() {
                   )}
                   <div className="text-center">
                     <TextareaInput
-                      label="Nội dung"
+                      label="Content"
                       value={reply}
                       onChange={setReply}
-                      placeholder="Nhập nội dung trả lời"
+                      placeholder="Nhập Content trả lời"
                     />
                     {!loading && (
                       <SelectInput

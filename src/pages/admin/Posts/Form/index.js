@@ -156,7 +156,7 @@ function PostForm() {
             {!loading && (
               <form onSubmit={onSubmit}>
                 <TextInput
-                  label="Tiêu đề"
+                  label="Title"
                   value={post.title}
                   onChange={(value) => setPost({ ...post, title: value })}
                   placeholder="title"
@@ -164,7 +164,7 @@ function PostForm() {
                 />
 
                 <SelectInput
-                  label="Thể loại"
+                  label="Category"
                   id="floatingSelect"
                   options={categories}
                   defaultOption="Chọn  ..."
@@ -194,13 +194,13 @@ function PostForm() {
                   isRequired={isRequired}
                 />
                 <TextareaInput
-                  label="Tóm tắt"
+                  label="Summary"
                   value={post.summary}
                   onChange={(value) => setPost({ ...post, summary: value })}
-                  placeholder="Tóm tắt"
+                  placeholder="Summary"
                 />
                 <EditorInput
-                  label="Nội dung"
+                  label="Content"
                   value={post.content}
                   onTextChange={handleTextEditorChange}
                   isRequired={isRequired}

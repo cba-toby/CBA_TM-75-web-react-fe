@@ -27,10 +27,10 @@ function Post() {
   const { setNotification } = useStateContext();
   const headers = [
     { label: "STT", width: "10%" },
-    { label: "Tiêu đề", width: "30%" },
+    { label: "Title", width: "30%" },
     { label: "Image", width: "20%" },
-    { label: "Thể loại", width: "20%" },
-    { label: "Tác giả", width: "20%" },
+    { label: "Category", width: "20%" },
+    { label: "Author", width: "20%" },
     { label: "Active", width: "20%" },
   ];
   useEffect(() => {

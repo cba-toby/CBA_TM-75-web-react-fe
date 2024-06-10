@@ -18,7 +18,7 @@ function Users() {
   const navigate = useNavigate();
   const headers = [
     { label: "#ID", width: "10%" },
-    { label: "Tên" },
+    { label: "Name" },
     { label: "Email", width: "30%" },
     { label: "Create Date", width: "20%" },
     { label: "Active", width: "20%" },

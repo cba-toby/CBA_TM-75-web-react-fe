@@ -101,8 +101,8 @@ function CategoryForm() {
       <div className="pagetitle">
         <h1>
           {!!category.id
-            ? `CẬP NHẬT DANH MỤC: ${categoryOld.title}`
-            : "TẠO MỚI DANH MỤC"}
+            ? `UPDATE CATEGORY: ${categoryOld.title}`
+            : "CREATE NEW CATEGORY"}
         </h1>
       </div>
       <div className="container">
@@ -119,19 +119,19 @@ function CategoryForm() {
             {!loading && (
               <form onSubmit={onSubmit}>
                 <TextInput
-                  label="Tiêu đề"
+                  label="Title"
                   value={category.title}
                   onChange={(value) =>
                     setCategory({ ...category, title: value })
                   }
-                  placeholder="Tiêu đề"
+                  placeholder="Title"
                   isRequired="true"
                 />
                 <SelectInput
-                  label="Danh mục cha"
+                  label="Category parent"
                   id="floatingSelect"
                   options={parent}
-                  defaultOption="Chọn danh mục cha ..."
+                  defaultOption="Category parent ..."
                   onChange={(e) =>
                     setCategory({ ...category, parent_id: e.target.value })
                   }
@@ -147,12 +147,12 @@ function CategoryForm() {
                   isRequired="true"
                 />
                 <TextInput
-                  label="Tiêu đề meta"
+                  label="Title meta"
                   value={category.title}
                   onChange={(value) =>
                     setCategory({ ...category, meta_title: value })
                   }
-                  placeholder="Tiêu đề meta"
+                  placeholder="Title meta"
                 />
                 <div className="text-center">
                   <button type="submit" className="btn btn-primary">

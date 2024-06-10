@@ -22,7 +22,7 @@ function TextareaInput({
         <div className="form-floating">
           <textarea
             className="form-control"
-            placeholder="Tóm tắt"
+            placeholder="Summary"
             id="floatingTextarea"
             style={{ height: "100px" }}
             value={inputValue}

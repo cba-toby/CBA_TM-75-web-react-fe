@@ -7,13 +7,13 @@ function Sidebar() {
   const isUser = user.role == process.env.REACT_APP_USER_ROLE;
 
   const postsLinks = [
-    { to: "/admin/posts", label: "Danh sách" },
-    { to: "/admin/posts/create", label: "Tạo mới" },
+    { to: "/admin/posts", label: "List" },
+    { to: "/admin/posts/create", label: "Create" },
   ];
 
   const postsAdditionalLinks = isUser
     ? []
-    : [{ to: "/admin/public-posts", label: "Công khai" }];
+    : [{ to: "/admin/public-posts", label: "Public" }];
 
   const postsFinalLinks = [...postsLinks, ...postsAdditionalLinks];
 
@@ -30,18 +30,18 @@ function Sidebar() {
         {!isUser && (
           <NavItem
             name="category"
-            title="Danh mục"
+            title="Category"
             icon="bi bi-pencil-square"
             links={[
-              { to: "/admin/category", label: "Danh sách" },
-              { to: "/admin/category/create", label: "Tạo mới" },
+              { to: "/admin/category", label: "List" },
+              { to: "/admin/category/create", label: "Create" },
             ]}
           />
         )}
         {/* Post */}
         <NavItem
           name="post"
-          title="Bài viết"
+          title="Post"
           icon="bi bi-file-earmark-medical-fill"
           links={postsFinalLinks}
         />
@@ -50,22 +50,22 @@ function Sidebar() {
         {!isUser && (
           <NavItem
             name="user"
-            title="Người dùng"
+            title="User"
             icon="bi bi-people-fill"
             links={[
-              { to: "/admin/users", label: "Danh sách" },
-              { to: "/admin/users/create", label: "Tạo mới" },
+              { to: "/admin/users", label: "List" },
+              { to: "/admin/users/create", label: "Create" },
             ]}
           />
         )}
-         <NavItem
+        {!isUser && (
+          <NavItem
             name="contact"
-            title="Liên hệ"
+            title="Contact"
             icon="bi bi-envelope"
-            links={[
-              { to: "/admin/contacts", label: "Danh sách" },
-            ]}
+            links={[{ to: "/admin/contacts", label: "List" }]}
           />
+        )}
       </ul>
     </aside>
   );

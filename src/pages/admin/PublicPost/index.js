@@ -9,7 +9,7 @@ function PublicPost() {
   const { setNotification } = useStateContext();
   const headers = [
     { label: "STT", width: "10%" },
-    { label: "Tiêu đề", width: "30%" },
+    { label: "Title", width: "30%" },
     { label: "Active", width: "20%" },
   ];
   const [posts, setPosts] = useState({
