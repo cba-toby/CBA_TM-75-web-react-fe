@@ -151,7 +151,7 @@ function UserForm() {
             {!loading && (
               <form onSubmit={onSubmit}>
                 <TextInput
-                  label="Tên đăng nhập"
+                  label="Name"
                   value={user.name}
                   onChange={(value) => setUser({ ...user, name: value })}
                   placeholder="Name"
@@ -165,7 +165,7 @@ function UserForm() {
                   isRequired={isRequired}
                 />
                 <TextInput
-                  label="Mật khẩu"
+                  label="Password"
                   value={user.password}
                   onChange={(value) => setUser({ ...user, password: value })}
                   placeholder="Password"
@@ -173,7 +173,7 @@ function UserForm() {
                   isRequired={isRequiredPassword}
                 />
                 <TextInput
-                  label="Xác nhận mật khẩu"
+                  label="Confirm Password"
                   value={user.password_confirmation}
                   onChange={(value) =>
                     setUser({ ...user, password_confirmation: value })
@@ -210,13 +210,13 @@ function UserForm() {
                   placeholder="X"
                 />
                 <TextareaInput
-                  label="Tóm tắt"
+                  label="Summary"
                   value={user.info}
                   onChange={(value) => setUser({ ...user, info: value })}
-                  placeholder="Tóm tắt"
+                  placeholder="Summary"
                 />
                 <SelectInput
-                  label="Phân quyền"
+                  label="Authorization"
                   id="floatingSelect"
                   options={roleList}
                   defaultOption="Chọn quyền ..."

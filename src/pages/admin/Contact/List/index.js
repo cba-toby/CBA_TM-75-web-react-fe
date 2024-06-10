@@ -15,7 +15,7 @@ function ContactList() {
   const [search, setSearch] = useState("");
   const headers = [
     { label: "STT", width: "10%" },
-    { label: "Tên", width: "20%" },
+    { label: "Name", width: "20%" },
     { label: "SĐT", width: "20%" },
     { label: "Trạng thái", width: "20%" },
     { label: "Active", width: "20%" },

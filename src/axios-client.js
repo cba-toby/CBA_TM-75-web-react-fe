@@ -16,12 +16,19 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.status == 401) {
+    console.log(error);
+    if (error.code == 'ERR_NETWORK') {
+      localStorage.removeItem("ACCESS_TOKEN");
+      window.location.reload();
+      return Promise.reject(error);
+    }
+    
+    if (error.response && error.response.status == 401) {
       console.log("Error 401");
-      // localStorage.removeItem("ACCESS_TOKEN");
+      return Promise.reject(error);
     }
 
-    throw error;
+    return Promise.reject(error);
   }
 );
 

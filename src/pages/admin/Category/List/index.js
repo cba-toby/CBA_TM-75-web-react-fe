@@ -18,9 +18,9 @@ function ListCategory() {
   const { setNotification } = useStateContext();
   const headers = [
     { label: "STT", width: "10%" },
-    { label: "Tiêu đề", width: "20%" },
-    { label: "Cấp độ", width: "10%" },
-    { label: "Danh mục cha", width: "20%" },
+    { label: "Title", width: "20%" },
+    { label: "level", width: "10%" },
+    { label: "Category parent", width: "20%" },
     { label: "Slug", width: "20%" },
     { label: "Active", width: "20%" },
   ];
